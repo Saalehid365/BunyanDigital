@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bunyan Digital — Ecommerce Growth Agency in Saudi Arabia</title>
+<meta name="description" content="Bunyan Digital builds and scales ecommerce brands across Saudi Arabia — strategy, Shopify/Salla development, performance marketing, and content that converts." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: "#12181f",
+          ink2: "#1e2a38",
+          forest: "#1e6b45",
+          forestDark: "#123d28",
+          forestLight: "#2f8f5c",
+          gold: "#c9a15a",
+          paper: "#ffffff",
+          muted: "#5b6572",
+          border: "#e2ddd0",
+        },
+        fontFamily: {
+          heading: ["Poppins", "sans-serif"],
+          body: ["Open Sans", "sans-serif"],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="assets/css/style.css?v=12" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
+</head>
+<body class="font-body bg-paper text-ink antialiased">
+
+<div id="preloader" aria-hidden="true">
+  <img src="assets/img/logo-mark.png" alt="" />
+</div>
+
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-ink focus:text-white focus:px-4 focus:py-2 focus:rounded-md">Skip to content</a>
+
+<header id="site-header" class="fixed top-0 inset-x-0 z-40 transition-colors duration-300">
+  <nav class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+    <a href="index.html" class="flex items-center gap-3 group" aria-label="Bunyan Digital home">
+      <img src="assets/img/logo-mark.png" alt="Bunyan Digital" class="logo-dark h-12 w-auto shrink-0" />
+      <img src="assets/img/logo-mark-light.png" alt="Bunyan Digital" class="logo-light h-12 w-auto shrink-0" aria-hidden="true" />
+      <span class="header-logo-text font-heading font-semibold text-base tracking-tight text-ink">Bunyan Digital</span>
+    </a>
+
+    <div class="hidden lg:flex items-center gap-9">
+      <a href="index.html" class="nav-link active text-sm font-medium text-ink">Home</a>
+      <a href="services.html" class="nav-link text-sm font-medium text-ink">Services</a>
+      <a href="portfolio.html" class="nav-link text-sm font-medium text-ink">Portfolio</a>
+      <a href="about.html" class="nav-link text-sm font-medium text-ink">About</a>
+      <a href="contact.html" class="nav-link text-sm font-medium text-ink">Contact</a>
+    </div>
+
+    <div class="hidden lg:block">
+      <a href="contact.html" class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold cursor-pointer">
+        Start a Project
+      </a>
+    </div>
+
+    <button id="menu-btn" aria-label="Open menu" class="header-menu-btn lg:hidden cursor-pointer p-2 -mr-2">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#12181f" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </nav>
+</header>
+
+<div id="menu-overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
+<div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-[78%] max-w-xs bg-white z-50 shadow-2xl px-8 py-8 flex flex-col">
+  <div class="flex justify-end">
+    <button id="menu-close" aria-label="Close menu" class="cursor-pointer p-2">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#12181f" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col gap-6 mt-8 text-lg font-heading font-medium">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <a href="contact.html" class="btn-primary mt-auto inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold cursor-pointer">Start a Project</a>
+</div>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 lg:px-10 bg-paper">
+    <div aria-hidden class="pointer-events-none absolute inset-0 -z-10 hidden opacity-70 lg:block">
+      <div class="absolute -left-32 -top-32 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(30,107,69,0.12),transparent)] blur-2xl"></div>
+      <div class="absolute -right-32 top-1/4 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(closest-side,rgba(30,107,69,0.09),transparent)] blur-2xl"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto text-center">
+      <div data-hero-item class="mx-auto flex w-fit items-center gap-2 rounded-full border border-border bg-white/70 px-4 py-1.5 shadow-sm shadow-black/5">
+        <span class="asterisk">✳</span>
+        <span class="text-xs font-semibold tracking-widest uppercase text-muted">Ecommerce Growth Agency</span>
+      </div>
+
+      <h1 data-hero-item class="display mx-auto mt-8 max-w-4xl text-5xl sm:text-6xl lg:text-7xl xl:text-[5.25rem]">
+        <span class="block text-ink">We build ecommerce</span>
+        <span class="block text-ink/35">stores that sell.</span>
+      </h1>
+
+      <p data-hero-item class="mx-auto mt-8 max-w-2xl text-muted leading-relaxed text-lg">
+        We build the digital structure behind Saudi Arabia's growing ecommerce brands — strategy, storefront design and performance marketing, all under one roof.
+      </p>
+
+      <div data-hero-item class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
+        <a href="contact.html" class="btn-bracket btn-bracket-dark text-ink cursor-pointer">Talk To Us</a>
+        <a href="portfolio.html" class="cursor-pointer inline-flex items-center gap-1.5 text-sm font-semibold text-ink/80 hover:text-ink transition-colors group">
+          View Our Case Studies
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" class="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div data-hero-item class="relative mt-16 sm:mt-20 px-2">
+        <div aria-hidden class="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-transparent from-35% to-paper"></div>
+        <div class="relative mx-auto max-w-5xl overflow-hidden rounded-2xl border border-border bg-white p-3 shadow-xl shadow-ink/10">
+          <img src="assets/img/process/00-final-website.jpg" alt="Bunyan Digital storefront project preview" class="aspect-[15/8] w-full rounded-xl object-cover" />
+        </div>
+      </div>
+
+      <div data-hero-item class="mt-16 sm:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-8 border-t border-border pt-8 max-w-3xl mx-auto text-center">
+        <div>
+          <div class="font-heading font-semibold text-3xl text-ink"><span class="stat-plus">+</span><span data-counter="40">0</span></div>
+          <div class="text-xs text-muted mt-1 uppercase tracking-wide">Brands launched</div>
+        </div>
+        <div>
+          <div class="font-heading font-semibold text-3xl text-ink"><span class="stat-plus">+</span><span data-counter="12" data-suffix="M">0</span> SAR</div>
+          <div class="text-xs text-muted mt-1 uppercase tracking-wide">Revenue generated</div>
+        </div>
+        <div>
+          <div class="font-heading font-semibold text-3xl text-ink"><span data-counter="3.4" data-suffix="x">0</span></div>
+          <div class="text-xs text-muted mt-1 uppercase tracking-wide">Conversion uplift</div>
+        </div>
+        <div>
+          <div class="font-heading font-semibold text-3xl text-ink"><span data-counter="6" data-suffix="x">0</span></div>
+          <div class="text-xs text-muted mt-1 uppercase tracking-wide">Blended ROAS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services: bento feature grid -->
+  <section class="glow-section pb-24 lg:pb-32 px-6 lg:px-10" data-reveal-group>
+    <div class="glow-content max-w-7xl mx-auto">
+      <div class="reveal max-w-2xl mb-12">
+        <p class="text-xs font-semibold tracking-widest uppercase text-white/50 mb-3"><span class="asterisk mr-1">✳</span> What We Do</p>
+        <h2 class="display text-3xl sm:text-4xl text-white mb-6">Discover the right service for your store.</h2>
+        <p class="text-white/60 leading-relaxed mb-8">Not every store needs the same thing. Whether you're launching, rebuilding, or scaling paid media, we help you pinpoint the approach that actually moves revenue.</p>
+        <a href="services.html" class="btn-bracket text-white cursor-pointer">All Services</a>
+      </div>
+
+      <div class="reveal grid grid-cols-6 gap-4">
+        <div class="relative col-span-6 lg:col-span-2 overflow-hidden rounded-2xl border border-border bg-white/5 p-8 flex flex-col items-center justify-center text-center">
+          <div aria-hidden class="pointer-events-none absolute inset-0 -z-10 opacity-60">
+            <div class="absolute -inset-y-12 inset-x-0 rounded-[50%] bg-[radial-gradient(closest-side,rgba(47,143,92,0.35),transparent)]"></div>
+          </div>
+          <div class="font-heading font-semibold text-5xl text-white"><span data-counter="6">0</span></div>
+          <p class="mt-3 font-heading font-semibold text-lg text-white">Core Services</p>
+          <p class="mt-1 text-sm text-white/50">One connected team, not six vendors.</p>
+        </div>
+
+        <div class="col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl border border-border bg-white/5 p-8 flex flex-col items-center text-center">
+          <div class="flex size-16 items-center justify-center rounded-full border border-border">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="text-white">
+              <circle cx="5" cy="6" r="2.5" stroke="currentColor" stroke-width="1.6" />
+              <circle cx="5" cy="18" r="2.5" stroke="currentColor" stroke-width="1.6" />
+              <circle cx="19" cy="12" r="2.5" stroke="currentColor" stroke-width="1.6" />
+              <path d="M7.3 7.1L16.8 11M7.3 16.9L16.8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+          </div>
+          <p class="mt-6 font-heading font-semibold text-lg text-white">Strategy &amp; Workflows</p>
+          <p class="mt-2 text-sm text-white/50">From growth strategy to automated flows — abandoned cart, inventory sync and order handling that run without manual work.</p>
+        </div>
+
+        <div class="col-span-6 sm:col-span-3 lg:col-span-2 rounded-2xl border border-border bg-white/5 p-8 flex flex-col items-center text-center">
+          <svg width="120" height="48" viewBox="0 0 120 48" fill="none" class="text-forestLight">
+            <path d="M2 40 L24 30 L46 34 L68 16 L90 20 L118 4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="118" cy="4" r="3.5" fill="currentColor" />
+          </svg>
+          <p class="mt-5 font-heading font-semibold text-lg text-white">Built For ROAS</p>
+          <p class="mt-2 text-sm text-white/50">Weekly reporting that ties every campaign back to revenue, not vanity metrics.</p>
+        </div>
+
+        <div class="col-span-6 lg:col-span-3 rounded-2xl border border-border bg-white/5 p-8">
+          <p class="font-heading font-semibold text-lg text-white mb-2">One Team, Every Channel</p>
+          <p class="text-sm text-white/50 mb-6 max-w-sm">From storefront to marketplace, we run the tools Saudi ecommerce actually runs on.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag-pill">Shopify</span>
+            <span class="tag-pill">Salla</span>
+            <span class="tag-pill">Meta</span>
+            <span class="tag-pill">Google</span>
+            <span class="tag-pill">TikTok</span>
+            <span class="tag-pill">Amazon.sa</span>
+          </div>
+        </div>
+
+        <div class="col-span-6 lg:col-span-3 rounded-2xl border border-border bg-white/5 p-8">
+          <p class="font-heading font-semibold text-lg text-white mb-2">Real Saudi Ecommerce Experience</p>
+          <p class="text-sm text-white/50 mb-6 max-w-sm">Not theory — brands we've actually designed, built and grown.</p>
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <span class="font-heading italic text-base text-white/80">Natural <span class="text-forestLight not-italic">&amp;</span> Naqi</span>
+            <span class="font-heading text-base"><span class="text-forestLight">need</span><span class="text-white/80">4</span><span class="text-white/70">health</span></span>
+            <span class="font-heading text-base text-white/80">Kingdom Appliances</span>
+            <span class="font-heading text-base text-white/80">Nour Scent &amp; Honey</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our process: interactive service steps -->
+  <section class="py-24 lg:py-32 px-6 lg:px-10" data-reveal-group>
+    <div class="max-w-7xl mx-auto">
+      <div class="reveal max-w-2xl mb-16">
+        <p class="text-xs font-semibold tracking-widest uppercase text-muted mb-3"><span class="asterisk mr-1">✳</span> Our Process</p>
+        <h2 class="display text-4xl sm:text-5xl text-ink mb-5">From strategy to launch, every service under one roof.</h2>
+        <p class="text-muted leading-relaxed">No handoffs between agencies. One team carries your store through strategy, design, development, content and marketing — then keeps optimizing after launch.</p>
+      </div>
+
+      <div class="reveal grid lg:grid-cols-2 gap-10 lg:gap-16 items-center" data-feature-steps data-interval="4200">
+        <div class="order-2 lg:order-1">
+          <div class="feature-step active border-t border-border py-5" data-feature-step tabindex="0" role="button" aria-label="Strategy & research">
+            <div class="flex items-center gap-4">
+              <span class="feature-step-badge">1</span>
+              <h3 class="font-heading font-semibold text-lg sm:text-xl text-ink">Strategy &amp; Research</h3>
+            </div>
+            <p class="mt-2 ml-[46px] text-sm text-muted leading-relaxed max-w-md">We study your customers, competitors and margins before touching a template — so the plan fits how Saudi shoppers actually buy, not a generic playbook.</p>
+            <div class="feature-step-progress ml-[46px] mt-4"><span data-feature-progress></span></div>
+          </div>
+
+          <div class="feature-step border-t border-border py-5" data-feature-step tabindex="0" role="button" aria-label="UX and wireframing">
+            <div class="flex items-center gap-4">
+              <span class="feature-step-badge">2</span>
+              <h3 class="font-heading font-semibold text-lg sm:text-xl text-ink">UX &amp; Wireframing</h3>
+            </div>
+            <p class="mt-2 ml-[46px] text-sm text-muted leading-relaxed max-w-md">Every page is mapped around the path to checkout, so promotions, search and product discovery earn their place before a single pixel is designed.</p>
+            <div class="feature-step-progress ml-[46px] mt-4"><span data-feature-progress></span></div>
+          </div>
+
+          <div class="feature-step border-t border-border py-5" data-feature-step tabindex="0" role="button" aria-label="Store design and build">
+            <div class="flex items-center gap-4">
+              <span class="feature-step-badge">3</span>
+              <h3 class="font-heading font-semibold text-lg sm:text-xl text-ink">Store Design &amp; Build</h3>
+            </div>
+            <p class="mt-2 ml-[46px] text-sm text-muted leading-relaxed max-w-md">Bilingual, mobile-first Shopify, Salla or Zid storefronts in your brand tone — built for the Mada and STC Pay checkout flows Saudi shoppers expect.</p>
+            <div class="feature-step-progress ml-[46px] mt-4"><span data-feature-progress></span></div>
+          </div>
+
+          <div class="feature-step border-t border-border py-5" data-feature-step tabindex="0" role="button" aria-label="Development and automation">
+            <div class="flex items-center gap-4">
+              <span class="feature-step-badge">4</span>
+              <h3 class="font-heading font-semibold text-lg sm:text-xl text-ink">Development &amp; Automation</h3>
+            </div>
+            <p class="mt-2 ml-[46px] text-sm text-muted leading-relaxed max-w-md">Builds wired up with abandoned-cart flows, inventory sync and marketplace integrations from day one, not bolted on after launch.</p>
+            <div class="feature-step-progress ml-[46px] mt-4"><span data-feature-progress></span></div>
+          </div>
+
+          <div class="feature-step border-t border-b border-border py-5" data-feature-step tabindex="0" role="button" aria-label="Marketing and launch">
+            <div class="flex items-center gap-4">
+              <span class="feature-step-badge">5</span>
+              <h3 class="font-heading font-semibold text-lg sm:text-xl text-ink">Marketing &amp; Launch</h3>
+            </div>
+            <p class="mt-2 ml-[46px] text-sm text-muted leading-relaxed max-w-md">Paid media, CRO and retention flows switch on the day you go live, with weekly reporting that ties every service back to revenue.</p>
+            <div class="feature-step-progress ml-[46px] mt-4"><span data-feature-progress></span></div>
+          </div>
+        </div>
+
+        <div class="order-1 lg:order-2">
+          <div class="feature-image-stack max-w-md mx-auto lg:mx-0">
+            <img data-feature-image class="active" src="assets/img/process/01-strategy.jpg" alt="Strategy and research phase" width="800" height="1000" />
+            <img data-feature-image src="assets/img/process/02-wireframe.jpg" alt="UX and wireframing phase" width="800" height="1000" />
+            <img data-feature-image src="assets/img/process/03-design.jpg" alt="Store design and build phase" width="800" height="1000" />
+            <img data-feature-image src="assets/img/process/04-development.jpg" alt="Development and automation phase" width="800" height="1000" />
+            <img data-feature-image src="assets/img/process/06-launch.jpg" alt="Marketing and launch phase" width="800" height="1000" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client strip -->
+  <section class="pb-24 lg:pb-32 px-6 lg:px-10" data-reveal-group>
+    <div class="max-w-7xl mx-auto">
+      <p class="reveal text-xs font-semibold tracking-widest uppercase text-muted mb-3"><span class="asterisk mr-1">✳</span> Clients</p>
+      <h2 class="reveal display text-3xl sm:text-4xl text-ink max-w-2xl mb-12">Trusted by growing ecommerce brands across the Kingdom and beyond.</h2>
+
+      <div class="reveal grid grid-cols-2 sm:grid-cols-4 rounded-2xl overflow-hidden border border-border shadow-sm">
+        <div class="border border-border bg-white p-8 sm:p-10 flex items-center justify-center">
+          <span class="font-heading italic text-xl sm:text-2xl text-ink">Natural <span class="text-forest not-italic">&amp;</span> Naqi</span>
+        </div>
+        <div class="border border-border bg-white p-8 sm:p-10 flex items-center justify-center">
+          <img src="assets/img/portfolio/kingdom-appliances.jpg" alt="Kingdom Appliances logo" class="h-8 sm:h-9 w-auto rounded bg-ink px-2 py-1" />
+        </div>
+        <div class="border border-border bg-white p-8 sm:p-10 flex items-center justify-center">
+          <span class="font-heading text-xl sm:text-2xl"><span class="text-forest">need</span><span class="text-ink">4</span><span class="text-muted">health</span></span>
+        </div>
+        <div class="border border-border bg-white p-8 sm:p-10 flex items-center justify-center">
+          <span class="font-heading text-lg sm:text-xl text-ink">Nour Scent &amp; Honey</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA with image -->
+  <section class="pb-24 lg:pb-32 px-6 lg:px-10" data-reveal-group>
+    <div class="max-w-7xl mx-auto">
+      <div class="reveal relative rounded-3xl overflow-hidden min-h-[420px] flex items-end">
+        <img src="assets/img/process/06-launch.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-transparent"></div>
+        <div class="relative p-8 sm:p-12 lg:p-16 max-w-lg">
+          <h2 class="display text-3xl sm:text-4xl text-white mb-4">Book a free 30-minute consultation.</h2>
+          <p class="text-white/70 leading-relaxed mb-8">We'll identify where you're losing sales, map a plan to fix it, and share quick wins you can action immediately.</p>
+          <a href="contact.html" class="btn-bracket text-white cursor-pointer">Speak To The Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About teaser -->
+  <section class="pb-24 lg:pb-32 px-6 lg:px-10" data-reveal-group>
+    <div class="max-w-7xl mx-auto">
+      <div class="reveal panel grid lg:grid-cols-2 gap-10 lg:gap-16 p-8 sm:p-12 lg:p-16 items-center">
+        <div class="panel-content order-2 lg:order-1 flex justify-center">
+          <div class="orbit-wrap">
+            <div class="orbit-ring"></div>
+            <div class="orbit-center">
+              <p class="font-heading font-semibold text-white text-lg sm:text-xl leading-snug">A unique blend<br />of skills</p>
+            </div>
+            <div class="orbit-nodes">
+              <div class="orbit-node" style="top:-6%; left:50%; --tx:-50%; --ty:0%;">Strategy</div>
+              <div class="orbit-node" style="top:16%; left:88%; --tx:-50%; --ty:0%;">Store Design</div>
+              <div class="orbit-node" style="top:64%; left:88%; --tx:-50%; --ty:0%;">Performance Marketing</div>
+              <div class="orbit-node" style="top:88%; left:50%; --tx:-50%; --ty:-50%;">CRO &amp; Analytics</div>
+              <div class="orbit-node" style="top:64%; left:12%; --tx:-50%; --ty:0%;">Retention CRM</div>
+              <div class="orbit-node" style="top:16%; left:12%; --tx:-50%; --ty:0%;">Marketplace Mgmt</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-content order-1 lg:order-2">
+          <p class="text-xs font-semibold tracking-widest uppercase text-muted mb-3"><span class="asterisk mr-1">✳</span> About Us</p>
+          <h2 class="display text-3xl sm:text-4xl text-white mb-5">Premium work.<br />Revenue results.</h2>
+          <p class="text-white/70 leading-relaxed mb-8 max-w-md">Bunyan Digital is an ecommerce agency built for brands who want a store — and a growth engine — that actually performs in the Saudi market. One team, strategy through execution.</p>
+          <a href="about.html" class="cursor-pointer inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold bg-white text-ink hover:bg-forestLight hover:text-white transition-colors">
+            Meet the team
+            <span class="asterisk">✳</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="glow-section pt-24 lg:pt-32 pb-24 px-6 lg:px-10">
+    <div class="glow-content max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
+      <h2 class="display text-4xl sm:text-5xl">
+        <span class="block text-white">Let's build your</span>
+        <span class="block text-white/35">store's success story.</span>
+      </h2>
+      <div>
+        <p class="text-white/70 leading-relaxed mb-8 max-w-md">Whether you're just getting started or scaling across marketplaces, Bunyan Digital brings deep ecommerce expertise, strategic clarity, and a results-first mindset.</p>
+        <a href="contact.html" class="btn-bracket text-white cursor-pointer">Start Conversation</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pt-16 pb-10 px-6 lg:px-10 bg-paper">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-14 border-b border-border">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img src="assets/img/logo-mark.png" alt="Bunyan Digital" class="h-10 w-auto" />
+          <span class="font-heading font-semibold text-base text-ink">Bunyan Digital</span>
+        </div>
+        <p class="text-sm text-muted max-w-sm leading-relaxed">Ecommerce strategy, storefront design and performance marketing for brands built in — and for — Saudi Arabia.</p>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm mb-4 text-ink">Useful Links</h4>
+        <ul class="space-y-3 text-sm text-muted">
+          <li><a href="about.html" class="hover:text-ink transition-colors">About</a></li>
+          <li><a href="services.html" class="hover:text-ink transition-colors">Services</a></li>
+          <li><a href="portfolio.html" class="hover:text-ink transition-colors">Portfolio</a></li>
+          <li><a href="contact.html" class="hover:text-ink transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm mb-4 text-ink">Get In Touch</h4>
+        <ul class="space-y-3 text-sm text-muted">
+          <li>United Kingdom &amp; Madinah, Saudi Arabia</li>
+          <li>
+            <a href="mailto:info@bunyandigital.co" class="inline-flex items-center gap-2 hover:text-ink transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0"><path d="M3 6l9 6 9-6M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              info@bunyandigital.co
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/447347559113" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-ink transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.55L3 20l1.05-5.4A8.5 8.5 0 1 1 21 11.5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              WhatsApp: +44 7347 559113
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-heading font-semibold text-sm mb-4 text-ink">Stay In The Loop</h4>
+        <p class="text-sm text-muted leading-relaxed mb-4">Occasional notes on ecommerce growth in Saudi Arabia — no spam.</p>
+        <form data-newsletter-form class="relative">
+          <label for="newsletter-email" class="sr-only">Email address</label>
+          <input id="newsletter-email" type="email" required placeholder="Your email address" class="w-full rounded-full border border-border bg-white pl-4 pr-[6.5rem] py-3 text-sm text-ink placeholder-muted focus:outline-none focus:border-forest transition-colors" />
+          <button type="submit" class="absolute right-1 top-1 bottom-1 rounded-full px-4 text-xs sm:text-sm font-semibold bg-ink text-white hover:bg-forest transition-colors cursor-pointer">Subscribe</button>
+        </form>
+        <p data-newsletter-note class="text-xs text-muted mt-3" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
+      <p>© <span id="year"></span> Bunyan Digital. All rights reserved.</p>
+      <p>Built for ecommerce brands across the Kingdom.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/447347559113" target="_blank" rel="noopener" class="floating-contact" aria-label="Contact Bunyan Digital on WhatsApp">
+  <img src="assets/img/logo-mark.png" alt="" aria-hidden="true" />
+  <span class="text-sm text-white leading-tight">
+    <span class="block font-semibold">Contact us</span>
+    <span class="block text-white/50 text-xs">Bunyan Digital</span>
+  </span>
+</a>
+
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js?v=11"></script>
+</body>
+</html>
