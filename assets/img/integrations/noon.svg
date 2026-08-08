@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>Noon</title>
+  <rect x="0.5" y="0.5" width="23" height="23" rx="6" fill="#FEEE00"/>
+  <circle cx="12" cy="12" r="6" fill="#111318"/>
+  <circle cx="15" cy="9.5" r="6" fill="#FEEE00"/>
+</svg>

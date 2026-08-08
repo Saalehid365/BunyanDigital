@@ -1,0 +1,5 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <title>Zid</title>
+  <rect x="0.5" y="0.5" width="23" height="23" rx="6" fill="#0B2239"/>
+  <path d="M7 8h10l-10 8h10" stroke="#C6F135" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
