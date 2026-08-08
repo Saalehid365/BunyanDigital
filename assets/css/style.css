@@ -275,12 +275,14 @@ body.hero-dark #site-header:not(.header-solid) .logo-light {
   object-fit: contain;
 }
 .integration-card-center {
+  width: 5.5rem;
+  height: 5.5rem;
   border-color: rgba(18, 24, 31, 0.18);
   box-shadow: 0 10px 25px rgba(18, 24, 31, 0.12);
 }
 .integration-card-center img {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 /* Numbered badge for services list */
