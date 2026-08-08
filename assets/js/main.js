@@ -331,3 +331,124 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(tick);
   });
 })();
+
+// Scroll-expand hero (home): the media card grows to fill the viewport as
+// the visitor scrolls or swipes, releasing into normal page scroll once
+// fully expanded; scrolling back up from the top re-collapses it.
+(function heroScrollExpand() {
+  const media = document.getElementById("hero-media");
+  if (!media) return;
+
+  const bg = document.getElementById("hero-bg");
+  const overlay = document.getElementById("hero-media-overlay");
+  const title1 = document.getElementById("hero-title-1");
+  const title2 = document.getElementById("hero-title-2");
+  const captionTop = document.getElementById("hero-caption-top");
+  const captionBottom = document.getElementById("hero-caption-bottom");
+  const content = document.getElementById("hero-content");
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let progress = 0;
+  let expanded = false;
+  let isMobile = window.innerWidth < 768;
+  let touchStartY = 0;
+
+  const render = () => {
+    const width = 300 + progress * (isMobile ? 650 : 1250);
+    const height = 400 + progress * (isMobile ? 200 : 400);
+    const translate = progress * (isMobile ? 180 : 150);
+
+    media.style.width = width + "px";
+    media.style.height = height + "px";
+    if (bg) bg.style.opacity = String(1 - progress);
+    if (overlay) overlay.style.opacity = String(0.6 - progress * 0.3);
+
+    if (title1) title1.style.transform = `translateX(-${translate}vw)`;
+    if (title2) title2.style.transform = `translateX(${translate}vw)`;
+    if (captionTop) captionTop.style.transform = `translateX(-${translate}vw)`;
+    if (captionBottom) captionBottom.style.transform = `translateX(${translate}vw)`;
+
+    if (content) content.style.opacity = expanded ? "1" : "0";
+  };
+
+  if (prefersReducedMotion) {
+    progress = 1;
+    expanded = true;
+    render();
+    return;
+  }
+
+  render();
+
+  const setProgress = (delta) => {
+    const next = Math.min(Math.max(progress + delta, 0), 1);
+    progress = next;
+    if (next >= 1) expanded = true;
+    else if (next < 0.75) expanded = false;
+    render();
+  };
+
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      if (expanded && e.deltaY < 0 && window.scrollY <= 5) {
+        expanded = false;
+        render();
+        e.preventDefault();
+        return;
+      }
+      if (!expanded) {
+        e.preventDefault();
+        setProgress(e.deltaY * 0.0009);
+      }
+    },
+    { passive: false }
+  );
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!expanded) window.scrollTo(0, 0);
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartY = e.touches[0].clientY;
+    },
+    { passive: false }
+  );
+
+  window.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!touchStartY) return;
+      const touchY = e.touches[0].clientY;
+      const deltaY = touchStartY - touchY;
+
+      if (expanded && deltaY < -20 && window.scrollY <= 5) {
+        expanded = false;
+        render();
+        e.preventDefault();
+        return;
+      }
+      if (!expanded) {
+        e.preventDefault();
+        const scrollFactor = deltaY < 0 ? 0.008 : 0.005;
+        setProgress(deltaY * scrollFactor);
+        touchStartY = touchY;
+      }
+    },
+    { passive: false }
+  );
+
+  window.addEventListener("touchend", () => { touchStartY = 0; }, { passive: true });
+
+  window.addEventListener("resize", () => {
+    isMobile = window.innerWidth < 768;
+    render();
+  });
+})();
