@@ -13,10 +13,14 @@ A reusable listing description for Yardley Packaging's eBay listings, branded in
 Open `ebay-template-generator.html` in any browser — double-click the file, no install, no internet connection needed (it doesn't call any server; nothing about your listing data leaves your computer).
 
 1. It opens pre-loaded with the Long Cardboard Boxes example. Use **"Clear / New listing"** to start a fresh product, or edit the example fields directly for today's listing.
-2. Fill in: **Title**, **Intro line**, up to 6 **Features** (icon + short label + one sentence each), the **Specifications** table, and optionally a **photo URL** (see Section 3 below for hosting).
-3. The right-hand panel updates live — a rendered preview on top, the raw HTML underneath.
-4. Click **Copy HTML**, then paste it into eBay's listing description (see step 4 below).
-5. Click **Download .html** to save a record of that listing's content for your files.
+2. Pick a **Category** from the dropdown (all 13 of Yardley's real categories — Cardboard Boxes, Bubble Wrap, Mailing Bags, Packaging Tapes, etc.). This automatically fills in sensible **Material**, **Colour**, **Recyclable**, **Custom Sizing** and **Feature** suggestions for that product type — everything stays fully editable afterward.
+3. Fill in the **Title** and **Intro line**, and optionally a **photo URL** (see Section 3 below for hosting).
+4. Adjust the pre-filled **Features** as needed — each one has its own "Choose a preset" dropdown if you want to swap in a different pre-written feature instead of typing one from scratch — and set **Size options** and **Pack quantity** (dimensions are typed freely since every size varies; quantity has a dropdown of common pack sizes).
+5. The right-hand panel updates live — a rendered preview on top, the raw HTML underneath.
+6. Click **Copy HTML**, then paste it into eBay's listing description (see step 4 below).
+7. Click **Download .html** to save a record of that listing's content for your files.
+
+Every dropdown (Material, Colour, Recyclable, Pack Quantity, Custom Sizing, and each Feature) has an **"Other (type below)"** option at the bottom if none of the listed choices fit — picking it reveals a text box to type your own.
 
 It warns you if any field looks like it contains a web address, since links to non-eBay sites aren't allowed in listing descriptions (see Section 4).
 
