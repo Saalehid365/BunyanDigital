@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>eBay Listing Generator — Yardley Packaging</title>
+<style>
+  :root{
+    --paper:#faf8f4; --ink:#201d18; --ink-soft:#4a453c; --muted:#8a8172;
+    --line:#e4ddcd; --card:#ffffff; --chrome:#f1ede3;
+    --green:#4f8f2a; --green-dark:#3a6b1e; --green-tint:#eef5e6;
+    --warn-bg:#fbf3e4; --warn-line:#e3c98a; --warn-ink:#7a5b12;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.5;}
+  header{
+    padding:22px 28px; border-bottom:1px solid var(--line); background:var(--card);
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  header h1{font-size:17px; margin:0; font-weight:600;}
+  header p{margin:2px 0 0; font-size:12.5px; color:var(--muted);}
+  .toolbar{display:flex; gap:8px; flex-wrap:wrap;}
+  button{
+    font-family:var(--sans); font-size:12.5px; font-weight:600; cursor:pointer;
+    border-radius:6px; padding:8px 13px; border:1px solid var(--line); background:var(--card); color:var(--ink);
+  }
+  button:hover{border-color:var(--green);}
+  button.primary{background:var(--green); border-color:var(--green); color:#fff;}
+  button.primary:hover{background:var(--green-dark); border-color:var(--green-dark);}
+  button.ghost{background:transparent;}
+
+  .layout{display:grid; grid-template-columns:minmax(340px,460px) 1fr; gap:0; min-height:calc(100vh - 73px);}
+  @media (max-width:900px){ .layout{grid-template-columns:1fr;} }
+
+  .form-pane{padding:26px 28px 60px; overflow-y:auto; border-right:1px solid var(--line);}
+  .preview-pane{padding:26px 28px 60px; overflow-y:auto; background:var(--chrome);}
+
+  fieldset{border:1px solid var(--line); border-radius:8px; padding:16px 16px 18px; margin:0 0 20px; background:var(--card);}
+  legend{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--green-dark); padding:0 6px;}
+  label{display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin:12px 0 5px;}
+  label:first-of-type{margin-top:0;}
+  input[type=text], textarea{
+    width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:6px;
+    font-family:var(--sans); font-size:13.5px; color:var(--ink); background:var(--paper); resize:vertical;
+  }
+  input[type=text]:focus, textarea:focus{outline:none; border-color:var(--green);}
+  .hint{font-size:11px; color:var(--muted); margin-top:4px;}
+
+  .row{display:grid; grid-template-columns:44px 1fr; gap:8px; align-items:start; margin-bottom:10px; padding-bottom:10px; border-bottom:1px dashed var(--line);}
+  .row:last-of-type{border-bottom:none;}
+  .row input.emoji{text-align:center; padding:9px 4px;}
+  .row .fields{display:flex; flex-direction:column; gap:6px;}
+  .row .field-line{display:flex; gap:6px;}
+  .remove-btn{
+    font-size:11px; padding:4px 8px; border-radius:5px; border:1px solid var(--line); background:var(--paper); color:var(--muted); cursor:pointer;
+  }
+  .remove-btn:hover{color:#b23c3c; border-color:#e3b3b3;}
+  .add-btn{margin-top:4px;}
+
+  .spec-row{display:grid; grid-template-columns:1fr 1fr auto; gap:6px; margin-bottom:8px; align-items:center;}
+
+  .warning{
+    display:none; background:var(--warn-bg); border:1px solid var(--warn-line); color:var(--warn-ink);
+    border-radius:8px; padding:12px 14px; font-size:12.5px; margin-bottom:20px;
+  }
+  .warning.show{display:block;}
+
+  .browser{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--card); margin-bottom:22px;}
+  .browser-bar{display:flex; align-items:center; gap:10px; padding:9px 12px; background:var(--chrome); border-bottom:1px solid var(--line);}
+  .dots{display:flex; gap:6px;}
+  .dots span{width:8px; height:8px; border-radius:50%; background:var(--line);}
+  .url{flex:1; font-family:var(--mono); font-size:11px; color:var(--muted); background:var(--paper); border:1px solid var(--line); border-radius:5px; padding:4px 9px;}
+  iframe{width:100%; border:0; display:block; background:#fff;}
+
+  .output-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;}
+  .output-head h2{font-size:13px; margin:0; font-family:var(--mono); text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft);}
+  textarea#output{
+    width:100%; height:260px; font-family:var(--mono); font-size:11.5px; padding:14px;
+    border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink-soft);
+  }
+  .copied-msg{font-size:11.5px; color:var(--green-dark); margin-left:8px; opacity:0; transition:opacity .2s;}
+  .copied-msg.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>eBay Listing Generator</h1>
+    <p>Yardley Packaging — fill in the product, copy the HTML, paste into eBay.</p>
+  </div>
+  <div class="toolbar">
+    <button class="ghost" id="loadExampleBtn" type="button">Load example (Long Cardboard Boxes)</button>
+    <button class="ghost" id="clearBtn" type="button">Clear / New listing</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <div class="form-pane">
+
+    <div class="warning" id="linkWarning">
+      ⚠️ <strong>Possible external link detected</strong> in your text below. eBay blocks links to non-eBay websites in listing descriptions and may remove the listing — double-check your wording doesn't include a full web address (yardleypackaging.co.uk, http://, etc.).
+    </div>
+
+    <fieldset>
+      <legend>Product</legend>
+      <label for="title">Title</label>
+      <input type="text" id="title" placeholder="e.g. Long Cardboard Boxes" />
+
+      <label for="intro">Intro line</label>
+      <textarea id="intro" rows="2" placeholder="One sentence describing what it's for and why it's good."></textarea>
+
+      <label for="imageUrl">Main photo URL (optional)</label>
+      <input type="text" id="imageUrl" placeholder="https://i.ebayimg.com/..." />
+      <p class="hint">Leave blank to keep a placeholder box in the output that reminds you to add it later. Upload the photo to your eBay listing gallery first, then right-click it and "copy image address" to get this link.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Features (4–6 recommended)</legend>
+      <div id="featuresList"></div>
+      <button class="add-btn ghost" id="addFeatureBtn" type="button">+ Add feature</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Specifications</legend>
+      <div id="specsList"></div>
+      <button class="add-btn ghost" id="addSpecBtn" type="button">+ Add row</button>
+    </fieldset>
+
+    <p class="hint">The trust strip, delivery/returns block, cross-sell section and footer stay fixed across every listing, so they're not editable here — only the product-specific sections above are.</p>
+
+  </div>
+
+  <div class="preview-pane">
+
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url">ebay.co.uk/itm/… · description preview</div>
+      </div>
+      <iframe id="previewFrame" title="Listing preview"></iframe>
+    </div>
+
+    <div class="output-head">
+      <h2>Generated HTML — copy this into eBay</h2>
+      <div>
+        <button class="primary" id="copyBtn" type="button">Copy HTML</button>
+        <button class="ghost" id="downloadBtn" type="button">Download .html</button>
+        <span class="copied-msg" id="copiedMsg">Copied ✓</span>
+      </div>
+    </div>
+    <textarea id="output" readonly onclick="this.select()"></textarea>
+
+  </div>
+
+</div>
+
+<script>
+const EXAMPLE = {
+  title: "Long Cardboard Boxes",
+  intro: "Ideal for shipping, storing, or organising large, irregular items — strong, sustainable, and space-saving.",
+  imageUrl: "",
+  features: [
+    { emoji: "📏", label: "Fits Irregular Shapes", text: "Designed specifically for long, oversized, or awkwardly shaped items." },
+    { emoji: "🛡️", label: "Durable Construction", text: "Built from sturdy corrugated cardboard to protect goods during transit and storage." },
+    { emoji: "🌿", label: "Eco-Friendly Choice", text: "Fully recyclable and sustainably sourced materials." },
+    { emoji: "📦", label: "Flat Packed", text: "Easy to store, ship, and handle before assembly." },
+    { emoji: "✂️", label: "Custom Sizing Available", text: "Bespoke sizes offered for specific requirements — just contact our team." }
+  ],
+  specs: [
+    { label: "Material", value: "Single-wall corrugated cardboard" },
+    { label: "Colour", value: "Brown kraft" },
+    { label: "Size options", value: "" },
+    { label: "Pack quantity", value: "Sold individually" },
+    { label: "Recyclable", value: "Yes — 100% recyclable" },
+    { label: "Custom sizing", value: "Available on request — contact us" }
+  ]
+};
+
+const BLANK = { title: "", intro: "", imageUrl: "", features: [
+  { emoji: "📏", label: "", text: "" },
+  { emoji: "🛡️", label: "", text: "" },
+  { emoji: "🌿", label: "", text: "" },
+  { emoji: "📦", label: "", text: "" }
+], specs: [
+  { label: "Material", value: "" },
+  { label: "Colour", value: "" },
+  { label: "Size options", value: "" },
+  { label: "Pack quantity", value: "" },
+  { label: "Recyclable", value: "" },
+  { label: "Custom sizing", value: "" }
+]};
+
+const STORAGE_KEY = "yardley-ebay-generator-state";
+let state = loadState() || JSON.parse(JSON.stringify(EXAMPLE));
+
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch(e){ return null; }
+}
+function saveState(){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+}
+
+function esc(s){
+  return (s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function buildImageBlock(){
+  if (state.imageUrl && state.imageUrl.trim()){
+    return `<img src="${esc(state.imageUrl.trim())}" alt="${esc(state.title)}" style="max-width:100%;height:auto;display:block;margin:0 auto;" />`;
+  }
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border:1px dashed #c7cfba;background-color:#f7f8f5;text-align:center;padding:40px 16px;color:#8a9080;font-size:13px;" bgcolor="#f7f8f5">REPLACE THIS BLOCK<br />&lt;img src="{{HTTPS URL TO MAIN PRODUCT PHOTO}}" alt="${esc(state.title)}" style="max-width:100%;height:auto;display:block;margin:0 auto;" /&gt;<br /><span style="font-size:11px;">Square photo, 1600&times;1600px, plain white background, HTTPS link required</span></td></tr></table>`;
+}
+
+function buildFeatureRows(){
+  const items = state.features.filter(f => f.label || f.text);
+  let rows = "";
+  for (let i = 0; i < items.length; i += 2){
+    const a = items[i], b = items[i+1];
+    rows += `<tr>
+      <td width="50%" valign="top" style="padding:10px 12px 10px 0;font-size:14px;line-height:1.6;color:#333333;"><span style="font-size:16px;">${esc(a.emoji)}</span> <strong>${esc(a.label)}:</strong> ${esc(a.text)}</td>
+      <td width="50%" valign="top" style="padding:10px 0 10px 12px;font-size:14px;line-height:1.6;color:#333333;">${b ? `<span style="font-size:16px;">${esc(b.emoji)}</span> <strong>${esc(b.label)}:</strong> ${esc(b.text)}` : ""}</td>
+    </tr>`;
+  }
+  return rows || `<tr><td colspan="2" style="padding:10px 0;font-size:13px;color:#999;">Add features on the left to see them here.</td></tr>`;
+}
+
+function buildSpecRows(){
+  const items = state.specs.filter(s => s.label || s.value);
+  if (!items.length) return `<tr><td style="padding:10px 14px;font-size:13px;color:#999;">Add specification rows on the left.</td></tr>`;
+  return items.map(s => `<tr>
+    <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;width:38%;">${esc(s.label)}</td>
+    <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">${esc(s.value)}</td>
+  </tr>`).join("");
+}
+
+function generateHTML(){
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:800px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;background-color:#ffffff;border:1px solid #e2e6dc;border-collapse:collapse;">
+
+  <tr>
+    <td style="background-color:#4f8f2a;padding:20px 24px;text-align:center;" bgcolor="#4f8f2a">
+      <div style="font-size:24px;line-height:1;font-weight:bold;color:#ffffff;letter-spacing:1px;">YARDLEY <span style="font-weight:normal;">PACKAGING</span></div>
+      <div style="font-size:13px;color:#e7f2dc;margin-top:6px;">UK Packaging Supplies — Boxes, Wrap &amp; Mailing Essentials</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:28px 28px 8px 28px;">
+      <h1 style="margin:0 0 10px 0;font-size:26px;line-height:1.25;color:#222222;font-family:Arial,Helvetica,sans-serif;">${esc(state.title) || "{{PRODUCT TITLE}}"}</h1>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#4a4a4a;">${esc(state.intro) || "{{ONE-LINE INTRO}}"}</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:12px 28px 20px 28px;">
+      ${buildImageBlock()}
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:0 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        ${buildFeatureRows()}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:18px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e6dc;border-collapse:collapse;">
+        <tr>
+          <td colspan="2" style="background-color:#eef5e6;padding:10px 14px;font-size:13px;font-weight:bold;color:#3f6e22;text-transform:uppercase;letter-spacing:0.5px;" bgcolor="#eef5e6">Specifications</td>
+        </tr>
+        ${buildSpecRows()}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:22px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">🚚<br />Fast UK<br />Dispatch</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">🌿<br />Eco-Friendly &amp;<br />Recyclable</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">📦<br />Bulk Discounts<br />Available</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">✂️<br />Custom Sizes<br />on Request</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:18px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e6dc;border-collapse:collapse;">
+        <tr>
+          <td style="padding:14px 16px;font-size:13px;line-height:1.7;color:#333333;">
+            <strong style="color:#222222;">Delivery:</strong> Dispatched quickly from our UK warehouse — see the postage options on this listing for delivery times.<br />
+            <strong style="color:#222222;">Returns:</strong> Not the right fit? See our returns policy on this listing, or message us before ordering if you need help choosing a size.<br />
+            <strong style="color:#222222;">Need a bespoke size or a bulk quantity?</strong> Call us on 0121 769 1411 or send us a message through eBay and we'll help you out.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:18px 28px 24px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f7f8f5;border:1px solid #e2e6dc;" bgcolor="#f7f8f5">
+        <tr>
+          <td style="padding:16px 18px;">
+            <div style="font-size:14px;font-weight:bold;color:#222222;margin-bottom:8px;">Complete your packaging order</div>
+            <div style="font-size:13px;line-height:1.7;color:#555555;">
+              We also stock: Bubble Wrap &amp; Envelopes · Kraft Paper Bags · Mailing Bags · Packaging Tapes · Pallet Wrap &amp; Stretch Film · Void &amp; Loose Fill · Corner &amp; Edge Protectors · Strapping.<br />
+              Search <strong>"Yardley Packaging"</strong> on eBay or check our other listings to see the full range.
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="background-color:#4f8f2a;padding:16px 24px;text-align:center;" bgcolor="#4f8f2a">
+      <div style="font-size:13px;color:#ffffff;">Yardley Packaging &nbsp;|&nbsp; 0121 769 1411 &nbsp;|&nbsp; VAT invoices available on request</div>
+    </td>
+  </tr>
+
+</table>`;
+}
+
+function checkLinkWarning(){
+  const textBlobs = [state.title, state.intro, ...state.features.flatMap(f => [f.label, f.text]), ...state.specs.flatMap(s => [s.label, s.value])];
+  const joined = textBlobs.join(" ").toLowerCase();
+  const suspicious = /https?:\/\/|www\.|\.co\.uk|\.com\b/.test(joined);
+  document.getElementById("linkWarning").classList.toggle("show", suspicious);
+}
+
+function renderFeatures(){
+  const wrap = document.getElementById("featuresList");
+  wrap.innerHTML = "";
+  state.features.forEach((f, i) => {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `
+      <input type="text" class="emoji" maxlength="2" value="${esc(f.emoji)}" data-i="${i}" data-k="emoji" />
+      <div class="fields">
+        <div class="field-line">
+          <input type="text" placeholder="Feature label, e.g. Fits Irregular Shapes" value="${esc(f.label)}" data-i="${i}" data-k="label" style="flex:1;" />
+          <button class="remove-btn" data-remove="${i}" type="button">Remove</button>
+        </div>
+        <textarea rows="2" placeholder="One sentence about this feature." data-i="${i}" data-k="text">${esc(f.text)}</textarea>
+      </div>`;
+    wrap.appendChild(row);
+  });
+}
+
+function renderSpecs(){
+  const wrap = document.getElementById("specsList");
+  wrap.innerHTML = "";
+  state.specs.forEach((s, i) => {
+    const row = document.createElement("div");
+    row.className = "spec-row";
+    row.innerHTML = `
+      <input type="text" placeholder="Label, e.g. Material" value="${esc(s.label)}" data-i="${i}" data-k="label" />
+      <input type="text" placeholder="Value" value="${esc(s.value)}" data-i="${i}" data-k="value" />
+      <button class="remove-btn" data-removeSpec="${i}" type="button">Remove</button>`;
+    wrap.appendChild(row);
+  });
+}
+
+function renderForm(){
+  document.getElementById("title").value = state.title;
+  document.getElementById("intro").value = state.intro;
+  document.getElementById("imageUrl").value = state.imageUrl;
+  renderFeatures();
+  renderSpecs();
+}
+
+function update(){
+  const html = generateHTML();
+  document.getElementById("output").value = html;
+  document.getElementById("previewFrame").srcdoc = `<!DOCTYPE html><html><body style="margin:0;padding:20px;background:#ffffff;font-family:Arial,Helvetica,sans-serif;">${html}</body></html>`;
+  checkLinkWarning();
+  saveState();
+}
+
+document.getElementById("featuresList").addEventListener("input", e => {
+  const t = e.target;
+  if (t.dataset.i !== undefined){ state.features[+t.dataset.i][t.dataset.k] = t.value; update(); }
+});
+document.getElementById("featuresList").addEventListener("click", e => {
+  if (e.target.dataset.remove !== undefined){
+    state.features.splice(+e.target.dataset.remove, 1);
+    renderFeatures(); update();
+  }
+});
+document.getElementById("addFeatureBtn").addEventListener("click", () => {
+  state.features.push({ emoji: "•", label: "", text: "" });
+  renderFeatures(); update();
+});
+
+document.getElementById("specsList").addEventListener("input", e => {
+  const t = e.target;
+  if (t.dataset.i !== undefined){ state.specs[+t.dataset.i][t.dataset.k] = t.value; update(); }
+});
+document.getElementById("specsList").addEventListener("click", e => {
+  if (e.target.dataset.removeSpec !== undefined){
+    state.specs.splice(+e.target.dataset.removeSpec, 1);
+    renderSpecs(); update();
+  }
+});
+document.getElementById("addSpecBtn").addEventListener("click", () => {
+  state.specs.push({ label: "", value: "" });
+  renderSpecs(); update();
+});
+
+["title","intro","imageUrl"].forEach(id => {
+  document.getElementById(id).addEventListener("input", e => { state[id] = e.target.value; update(); });
+});
+
+document.getElementById("loadExampleBtn").addEventListener("click", () => {
+  state = JSON.parse(JSON.stringify(EXAMPLE));
+  renderForm(); update();
+});
+document.getElementById("clearBtn").addEventListener("click", () => {
+  if (!confirm("Clear the form for a new listing? This can't be undone.")) return;
+  state = JSON.parse(JSON.stringify(BLANK));
+  renderForm(); update();
+});
+
+document.getElementById("copyBtn").addEventListener("click", async () => {
+  const out = document.getElementById("output");
+  out.select();
+  try {
+    await navigator.clipboard.writeText(out.value);
+  } catch(e){
+    document.execCommand("copy");
+  }
+  const msg = document.getElementById("copiedMsg");
+  msg.classList.add("show");
+  setTimeout(() => msg.classList.remove("show"), 1500);
+});
+
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  const blob = new Blob([document.getElementById("output").value], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const slug = (state.title || "listing").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  a.href = url; a.download = `${slug || "listing"}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+renderForm();
+update();
+</script>
+</body>
+</html>

@@ -1,12 +1,36 @@
 # Yardley Packaging — eBay Listing Template
 
-**File:** `ebay-listing-template.html`
+**Files:**
+- `ebay-template-generator.html` — **use this one day-to-day.** A form-based generator: fill in a product's title, features and specs, and it outputs ready-to-paste HTML with a live preview. No coding, no manual editing of placeholders.
+- `ebay-listing-template.html` — the raw template the generator is built from. Only needed if you want to hand-edit the HTML directly instead of using the generator.
 
-A reusable HTML description template for Yardley Packaging's eBay listings, branded in their green/white house style. It's pre-filled with a real example (Long Cardboard Boxes, £19.90) so it's ready to use on that listing today, and built so it's quick to reuse for every future product.
+A reusable listing description for Yardley Packaging's eBay listings, branded in their green/white house style. Pre-loaded with a real example (Long Cardboard Boxes, £19.90) so it's ready to use today, and built so any future product takes minutes, not manual HTML editing.
 
 ---
 
-## 1. How to use it on today's listing (Long Cardboard Boxes)
+## 0. The generator (recommended workflow)
+
+Open `ebay-template-generator.html` in any browser — double-click the file, no install, no internet connection needed (it doesn't call any server; nothing about your listing data leaves your computer).
+
+1. It opens pre-loaded with the Long Cardboard Boxes example. Use **"Clear / New listing"** to start a fresh product, or edit the example fields directly for today's listing.
+2. Fill in: **Title**, **Intro line**, up to 6 **Features** (icon + short label + one sentence each), the **Specifications** table, and optionally a **photo URL** (see Section 3 below for hosting).
+3. The right-hand panel updates live — a rendered preview on top, the raw HTML underneath.
+4. Click **Copy HTML**, then paste it into eBay's listing description (see step 4 below).
+5. Click **Download .html** to save a record of that listing's content for your files.
+
+It warns you if any field looks like it contains a web address, since links to non-eBay sites aren't allowed in listing descriptions (see Section 4).
+
+Your in-progress form is auto-saved in the browser as you type, so refreshing the page won't lose your work — but it only remembers the *last* listing you were editing, not a history of every one, so download or copy-paste each listing's HTML before starting the next.
+
+**Where to keep it:** it's a single file with no dependencies, so it works equally well:
+- kept on a shared drive or emailed to whoever lists products, opened locally when needed, or
+- uploaded to an unlisted/private page on your own website (e.g. `yardleypackaging.co.uk/tools/ebay-generator.html`) so the whole team can reach it from one link.
+
+Either way, nothing needs installing or hosting on a server — it's just a webpage that runs entirely in the browser.
+
+---
+
+## 1. How to use the raw template directly (manual method)
 
 1. Open `ebay-listing-template.html` in any text editor (Notepad, VS Code, TextEdit).
 2. Replace the two placeholder photo blocks with real image links — see **Section 3** below on photo hosting. Everything else in this file is already filled in with real content from the product page.
@@ -70,11 +94,11 @@ The HTML description is only half of a strong listing. For every product, also f
 
 ## 6. Quick checklist before hitting publish
 
-- [ ] Title and intro rewritten for this product
-- [ ] Real photo URL(s) in place of the placeholder boxes
-- [ ] Feature bullets rewritten and accurate
+- [ ] Title and intro written for this product
+- [ ] Real photo URL in place of the placeholder box (or added directly if using the generator)
+- [ ] Feature bullets written and accurate
 - [ ] Specifications table filled in
-- [ ] No `{{` placeholders left in the file (search to confirm)
-- [ ] No links to yardleypackaging.co.uk anywhere in the HTML
+- [ ] No `{{` placeholders left, if editing the raw template by hand
+- [ ] No links to yardleypackaging.co.uk anywhere in the HTML (the generator warns you about this automatically)
 - [ ] Previewed on both desktop and mobile in eBay's preview tool
 - [ ] Item Specifics filled in on the listing form itself
