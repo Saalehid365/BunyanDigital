@@ -3,8 +3,11 @@
 **Files:**
 - `ebay-template-generator.html` — **use this one day-to-day.** A form-based generator: fill in a product's title, features and specs, and it outputs ready-to-paste HTML with a live preview. No coding, no manual editing of placeholders.
 - `ebay-listing-template.html` — the raw template the generator is built from. Only needed if you want to hand-edit the HTML directly instead of using the generator.
+- `assets/yardley-logo-white.png` — the logo file itself, kept here for reference/reuse elsewhere. You don't need to touch it for listings — see below.
 
-A reusable listing description for Yardley Packaging's eBay listings, branded in their green/white house style. Pre-loaded with a real example (Long Cardboard Boxes, £19.90) so it's ready to use today, and built so any future product takes minutes, not manual HTML editing.
+A reusable listing description for Yardley Packaging's eBay listings, branded in their green/white house style and real logo. Pre-loaded with a real example (Long Cardboard Boxes, £19.90) so it's ready to use today, and built so any future product takes minutes, not manual HTML editing.
+
+**About the logo:** it's embedded directly inside both HTML files as inline image data, not linked to an external file. That means it always displays correctly with zero extra setup — you don't need to host it anywhere, and there's no broken-image risk the way there is with product photos (see Section 3).
 
 ---
 
