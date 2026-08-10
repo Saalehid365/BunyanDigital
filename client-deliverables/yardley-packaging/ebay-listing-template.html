@@ -1,0 +1,186 @@
+<!--
+  YARDLEY PACKAGING — REUSABLE EBAY LISTING TEMPLATE
+  Built by Bunyan Digital — August 2026
+
+  HOW THIS FILE WORKS
+  --------------------
+  This is a single, self-contained block of HTML. No JavaScript, no external
+  stylesheets, no forms, no iframes — eBay strips or blocks all of those, so
+  everything here is inline styles + tables, which is the safest combination
+  for eBay's listing description editor.
+
+  It is pre-filled with a REAL example listing (Long Cardboard Boxes, £19.90)
+  taken from yardleypackaging.co.uk, so you can paste it straight into that
+  eBay listing today. To reuse it for a different product, search this file
+  for the token {{ and replace every {{PLACEHOLDER}} — see the full
+  instructions doc (README-instructions.md) in this same folder for the
+  step-by-step guide and the do/don't list for eBay's HTML rules.
+
+  Do not paste this into eBay with the surrounding <!-- comment --> tags
+  removed manually — leave this comment block in, eBay ignores HTML
+  comments and it keeps this file self-documenting for whoever edits it
+  next.
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:800px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;background-color:#ffffff;border:1px solid #e2e6dc;border-collapse:collapse;">
+
+  <!-- ============ BRAND HEADER ============ -->
+  <tr>
+    <td style="background-color:#4f8f2a;padding:20px 24px;text-align:center;" bgcolor="#4f8f2a">
+      <div style="font-size:24px;line-height:1;font-weight:bold;color:#ffffff;letter-spacing:1px;">YARDLEY <span style="font-weight:normal;">PACKAGING</span></div>
+      <div style="font-size:13px;color:#e7f2dc;margin-top:6px;">UK Packaging Supplies — Boxes, Wrap &amp; Mailing Essentials</div>
+    </td>
+  </tr>
+
+  <!-- ============ PRODUCT TITLE + INTRO ============ -->
+  <!-- EDIT PER LISTING: title + intro line -->
+  <tr>
+    <td style="padding:28px 28px 8px 28px;">
+      <h1 style="margin:0 0 10px 0;font-size:26px;line-height:1.25;color:#222222;font-family:Arial,Helvetica,sans-serif;">{{PRODUCT_TITLE — e.g. Long Cardboard Boxes}}</h1>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#4a4a4a;">{{ONE-LINE INTRO — e.g. Ideal for shipping, storing, or organising large, irregular items — strong, sustainable, and space-saving.}}</p>
+    </td>
+  </tr>
+
+  <!-- ============ PHOTO BLOCK ============ -->
+  <!-- EDIT PER LISTING: replace the placeholder <img> src values with your own hosted photo URLs. -->
+  <!-- Main photo: square, min. 1600x1600px, plain white background, HTTPS URL. -->
+  <tr>
+    <td style="padding:12px 28px 20px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="border:1px dashed #c7cfba;background-color:#f7f8f5;text-align:center;padding:40px 16px;color:#8a9080;font-size:13px;" bgcolor="#f7f8f5">
+            REPLACE THIS BLOCK<br />
+            &lt;img src="{{HTTPS URL TO MAIN PRODUCT PHOTO}}" alt="{{PRODUCT_TITLE}}" style="max-width:100%;height:auto;display:block;margin:0 auto;" /&gt;<br />
+            <span style="font-size:11px;">Square photo, 1600×1600px, plain white background, HTTPS link required</span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ FEATURE BULLETS ============ -->
+  <!-- EDIT PER LISTING: 4–6 features, same icon + bold label + sentence style used across the Yardley site. -->
+  <tr>
+    <td style="padding:0 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="50%" valign="top" style="padding:10px 12px 10px 0;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">📏</span> <strong>Fits Irregular Shapes:</strong> Designed specifically for long, oversized, or awkwardly shaped items.
+          </td>
+          <td width="50%" valign="top" style="padding:10px 0 10px 12px;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">🛡️</span> <strong>Durable Construction:</strong> Built from sturdy corrugated cardboard to protect goods during transit and storage.
+          </td>
+        </tr>
+        <tr>
+          <td width="50%" valign="top" style="padding:10px 12px 10px 0;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">🌿</span> <strong>Eco-Friendly Choice:</strong> Fully recyclable and sustainably sourced materials.
+          </td>
+          <td width="50%" valign="top" style="padding:10px 0 10px 12px;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">📦</span> <strong>Flat Packed:</strong> Easy to store, ship, and handle before assembly.
+          </td>
+        </tr>
+        <tr>
+          <td width="50%" valign="top" style="padding:10px 12px 10px 0;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">✂️</span> <strong>Custom Sizing Available:</strong> Bespoke sizes offered for specific requirements — just contact our team.
+          </td>
+          <td width="50%" valign="top" style="padding:10px 0 10px 12px;font-size:14px;line-height:1.6;color:#333333;">
+            {{OPTIONAL 6TH FEATURE — delete this cell, or its row, if you only have 5 features}}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ SPECIFICATIONS TABLE ============ -->
+  <!-- EDIT PER LISTING: every value in the right-hand column. -->
+  <tr>
+    <td style="padding:18px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e6dc;border-collapse:collapse;">
+        <tr>
+          <td colspan="2" style="background-color:#eef5e6;padding:10px 14px;font-size:13px;font-weight:bold;color:#3f6e22;text-transform:uppercase;letter-spacing:0.5px;" bgcolor="#eef5e6">Specifications</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;width:38%;">Material</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">Single-wall corrugated cardboard</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Colour</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">Brown kraft</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Size options</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">{{LIST SIZE / DIMENSION OPTIONS HERE}}</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Pack quantity</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">{{e.g. Sold individually / Pack of 10}}</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Recyclable</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">Yes — 100% recyclable</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Custom sizing</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">Available on request — contact us</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ TRUST / USP STRIP ============ -->
+  <!-- Generally does NOT need editing between listings — these are store-wide, not product-specific. -->
+  <tr>
+    <td style="padding:22px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">🚚<br />Fast UK<br />Dispatch</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">🌿<br />Eco-Friendly &amp;<br />Recyclable</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">📦<br />Bulk Discounts<br />Available</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">✂️<br />Custom Sizes<br />on Request</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ DELIVERY & RETURNS ============ -->
+  <!-- Store-wide — check the wording against your actual eBay postage/returns settings before reuse. -->
+  <tr>
+    <td style="padding:18px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e6dc;border-collapse:collapse;">
+        <tr>
+          <td style="padding:14px 16px;font-size:13px;line-height:1.7;color:#333333;">
+            <strong style="color:#222222;">Delivery:</strong> Dispatched quickly from our UK warehouse — see the postage options on this listing for delivery times.<br />
+            <strong style="color:#222222;">Returns:</strong> Not the right fit? See our returns policy on this listing, or message us before ordering if you need help choosing a size.<br />
+            <strong style="color:#222222;">Need a bespoke size or a bulk quantity?</strong> Call us on 0121 769 1411 or send us a message through eBay and we'll help you out.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ MORE FROM YARDLEY ============ -->
+  <!-- Do NOT add external website links here — eBay's policy blocks links off eBay in listing descriptions. -->
+  <!-- Just name the categories in plain text; buyers can search "Yardley Packaging" on eBay to find them. -->
+  <tr>
+    <td style="padding:18px 28px 24px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f7f8f5;border:1px solid #e2e6dc;" bgcolor="#f7f8f5">
+        <tr>
+          <td style="padding:16px 18px;">
+            <div style="font-size:14px;font-weight:bold;color:#222222;margin-bottom:8px;">Complete your packaging order</div>
+            <div style="font-size:13px;line-height:1.7;color:#555555;">
+              We also stock: Bubble Wrap &amp; Envelopes · Kraft Paper Bags · Mailing Bags · Packaging Tapes · Pallet Wrap &amp; Stretch Film · Void &amp; Loose Fill · Corner &amp; Edge Protectors · Strapping.<br />
+              Search <strong>"Yardley Packaging"</strong> on eBay or check our other listings to see the full range.
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ FOOTER ============ -->
+  <tr>
+    <td style="background-color:#4f8f2a;padding:16px 24px;text-align:center;" bgcolor="#4f8f2a">
+      <div style="font-size:13px;color:#ffffff;">Yardley Packaging &nbsp;|&nbsp; 0121 769 1411 &nbsp;|&nbsp; VAT invoices available on request</div>
+    </td>
+  </tr>
+
+</table>
