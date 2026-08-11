@@ -53,6 +53,16 @@
   select{appearance:auto; cursor:pointer;}
   input[type=text]:focus, textarea:focus, select:focus{outline:none; border-color:var(--green);}
   .hint{font-size:11px; color:var(--muted); margin-top:4px;}
+  .hint a{color:var(--green-dark);}
+
+  .photo-drop{
+    border:1.5px dashed var(--line); border-radius:8px; background:var(--paper);
+    padding:22px 14px; text-align:center; cursor:pointer; transition:border-color .15s, background .15s;
+  }
+  .photo-drop:hover, .photo-drop:focus-visible, .photo-drop.dragover{ border-color:var(--green); background:var(--green-tint); outline:none; }
+  .photo-drop-title{display:block; font-size:13px; font-weight:600; color:var(--ink-soft);}
+  #photoDropFilled{display:flex; justify-content:center;}
+  #photoThumb{max-width:100%; max-height:160px; border-radius:6px; display:block;}
 
   .row{display:grid; grid-template-columns:44px 1fr; gap:8px; align-items:start; margin-bottom:12px; padding-bottom:12px; border-bottom:1px dashed var(--line);}
   .row:last-of-type{border-bottom:none;}
@@ -128,9 +138,27 @@
       <label for="intro">Intro line</label>
       <textarea id="intro" rows="2" placeholder="One sentence describing what it's for and why it's good."></textarea>
 
-      <label for="imageUrl">Main photo URL (optional)</label>
-      <input type="text" id="imageUrl" placeholder="https://i.ebayimg.com/..." />
-      <p class="hint">Leave blank to keep a placeholder box in the output that reminds you to add it later. Upload the photo to your eBay listing gallery first, then right-click it and "copy image address" to get this link.</p>
+      <label>Main photo (optional)</label>
+      <div class="photo-drop" id="photoDrop" tabindex="0" role="button" aria-label="Upload a product photo">
+        <input type="file" id="photoFile" accept="image/*" style="display:none" />
+        <div id="photoDropEmpty">
+          <span class="photo-drop-title">Click to upload, or drag a photo here</span>
+          <span class="hint" style="margin:4px 0 0;">JPG or PNG — it's resized and compressed automatically</span>
+        </div>
+        <div id="photoDropFilled" style="display:none;">
+          <img id="photoThumb" alt="" />
+        </div>
+      </div>
+      <div id="photoMeta" class="hint" style="display:none;"></div>
+      <button type="button" class="ghost" id="removePhotoBtn" style="display:none;margin-top:8px;">Remove photo</button>
+
+      <p class="hint" style="margin-top:10px;">
+        <a href="#" id="toggleUrlMode">Paste an image URL instead</a>
+      </p>
+      <div id="urlModeWrap" style="display:none;">
+        <input type="text" id="imageUrl" placeholder="https://i.ebayimg.com/..." />
+        <p class="hint">Use this if you've already uploaded the photo to your eBay listing gallery — right-click it there and "copy image address" to get the link.</p>
+      </div>
     </fieldset>
 
     <fieldset>
@@ -629,11 +657,71 @@ function renderCategorySelect(){
     CATEGORIES.map(c => `<option value="${esc(c)}" ${state.category === c ? "selected" : ""}>${esc(c)}</option>`).join("");
 }
 
+let uiPhotoMode = "upload";
+
+function renderPhotoField(){
+  const isDataUri = state.imageUrl && state.imageUrl.startsWith("data:");
+  const isUrl = state.imageUrl && !isDataUri;
+  if (isUrl) uiPhotoMode = "url";
+  if (isDataUri) uiPhotoMode = "upload";
+
+  document.getElementById("urlModeWrap").style.display = uiPhotoMode === "url" ? "" : "none";
+  document.getElementById("photoDrop").style.display = uiPhotoMode === "url" ? "none" : "";
+  document.getElementById("toggleUrlMode").textContent = uiPhotoMode === "url" ? "Upload a photo instead" : "Paste an image URL instead";
+  document.getElementById("imageUrl").value = isUrl ? state.imageUrl : "";
+
+  const empty = document.getElementById("photoDropEmpty");
+  const filled = document.getElementById("photoDropFilled");
+  const thumb = document.getElementById("photoThumb");
+  const meta = document.getElementById("photoMeta");
+  const removeBtn = document.getElementById("removePhotoBtn");
+
+  if (isDataUri){
+    empty.style.display = "none";
+    filled.style.display = "flex";
+    thumb.src = state.imageUrl;
+    const kb = Math.round(state.imageUrl.length * 0.75 / 1024);
+    meta.style.display = "block";
+    meta.textContent = kb > 400
+      ? `${kb} KB — quite large for a listing description; consider a smaller photo if it feels slow to load.`
+      : `${kb} KB — ready to use.`;
+    removeBtn.style.display = "inline-block";
+  } else {
+    empty.style.display = "block";
+    filled.style.display = "none";
+    meta.style.display = "none";
+    removeBtn.style.display = "none";
+  }
+}
+
+function handlePhotoFile(file){
+  if (!file || !file.type || !file.type.startsWith("image/")) return;
+  const objectUrl = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = () => {
+    const maxDim = 1600;
+    let { width, height } = img;
+    if (width > maxDim || height > maxDim){
+      if (width >= height){ height = Math.round(height * (maxDim / width)); width = maxDim; }
+      else { width = Math.round(width * (maxDim / height)); height = maxDim; }
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = width; canvas.height = height;
+    canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+    state.imageUrl = canvas.toDataURL("image/jpeg", 0.85);
+    uiPhotoMode = "upload";
+    URL.revokeObjectURL(objectUrl);
+    renderPhotoField(); update();
+  };
+  img.onerror = () => { URL.revokeObjectURL(objectUrl); alert("Couldn't read that image — try a different file."); };
+  img.src = objectUrl;
+}
+
 function renderForm(){
   renderCategorySelect();
   document.getElementById("title").value = state.title;
   document.getElementById("intro").value = state.intro;
-  document.getElementById("imageUrl").value = state.imageUrl;
+  renderPhotoField();
   renderFeatures();
   renderSpecsFixed();
   renderExtraSpecs();
@@ -666,8 +754,38 @@ document.getElementById("category").addEventListener("change", e => {
   renderForm(); update();
 });
 
-["title", "intro", "imageUrl"].forEach(id => {
+["title", "intro"].forEach(id => {
   document.getElementById(id).addEventListener("input", e => { state[id] = e.target.value; update(); });
+});
+
+document.getElementById("imageUrl").addEventListener("input", e => {
+  state.imageUrl = e.target.value;
+  uiPhotoMode = "url";
+  update();
+});
+
+document.getElementById("photoFile").addEventListener("change", e => handlePhotoFile(e.target.files[0]));
+
+const photoDrop = document.getElementById("photoDrop");
+photoDrop.addEventListener("click", () => document.getElementById("photoFile").click());
+photoDrop.addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " "){ e.preventDefault(); document.getElementById("photoFile").click(); }
+});
+["dragover", "dragenter"].forEach(evt => photoDrop.addEventListener(evt, e => { e.preventDefault(); photoDrop.classList.add("dragover"); }));
+["dragleave", "drop"].forEach(evt => photoDrop.addEventListener(evt, e => { e.preventDefault(); photoDrop.classList.remove("dragover"); }));
+photoDrop.addEventListener("drop", e => handlePhotoFile(e.dataTransfer.files && e.dataTransfer.files[0]));
+
+document.getElementById("removePhotoBtn").addEventListener("click", () => {
+  state.imageUrl = "";
+  document.getElementById("photoFile").value = "";
+  renderPhotoField(); update();
+});
+
+document.getElementById("toggleUrlMode").addEventListener("click", e => {
+  e.preventDefault();
+  uiPhotoMode = uiPhotoMode === "url" ? "upload" : "url";
+  if (uiPhotoMode === "upload" && state.imageUrl && !state.imageUrl.startsWith("data:")){ state.imageUrl = ""; }
+  renderPhotoField(); update();
 });
 
 document.getElementById("featuresList").addEventListener("input", e => {
@@ -735,12 +853,16 @@ document.getElementById("addExtraSpecBtn").addEventListener("click", () => {
 document.getElementById("loadExampleBtn").addEventListener("click", () => {
   state = JSON.parse(JSON.stringify(EXAMPLE));
   uiOtherMode = { material: false, colour: false, recyclable: false, packQty: false, customSizing: false };
+  uiPhotoMode = "upload";
+  document.getElementById("photoFile").value = "";
   renderForm(); update();
 });
 document.getElementById("clearBtn").addEventListener("click", () => {
   if (!confirm("Clear the form for a new listing? This can't be undone.")) return;
   state = JSON.parse(JSON.stringify(BLANK));
   uiOtherMode = { material: false, colour: false, recyclable: false, packQty: false, customSizing: false };
+  uiPhotoMode = "upload";
+  document.getElementById("photoFile").value = "";
   renderForm(); update();
 });
 

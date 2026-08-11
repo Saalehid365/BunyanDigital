@@ -17,7 +17,7 @@ Open `ebay-template-generator.html` in any browser — double-click the file, no
 
 1. It opens pre-loaded with the Long Cardboard Boxes example. Use **"Clear / New listing"** to start a fresh product, or edit the example fields directly for today's listing.
 2. Pick a **Category** from the dropdown (all 13 of Yardley's real categories — Cardboard Boxes, Bubble Wrap, Mailing Bags, Packaging Tapes, etc.). This automatically fills in sensible **Material**, **Colour**, **Recyclable**, **Custom Sizing** and **Feature** suggestions for that product type — everything stays fully editable afterward.
-3. Fill in the **Title** and **Intro line**, and optionally a **photo URL** (see Section 3 below for hosting).
+3. Fill in the **Title** and **Intro line**, and for the photo, **just drag your product photo in or click to upload it** — no need to touch eBay first. The generator resizes and compresses it automatically and bakes it directly into the HTML, so there's nothing to host separately. (If you'd rather link to a photo you've already uploaded to your eBay listing gallery, click "Paste an image URL instead" — see Section 3 for when that's useful.)
 4. Adjust the pre-filled **Features** as needed — each one has its own "Choose a preset" dropdown if you want to swap in a different pre-written feature instead of typing one from scratch — and set **Size options** and **Pack quantity** (dimensions are typed freely since every size varies; quantity has a dropdown of common pack sizes).
 5. The right-hand panel updates live — a rendered preview on top, the raw HTML underneath.
 6. Click **Copy HTML**, then paste it into eBay's listing description (see step 4 below).
@@ -67,15 +67,19 @@ Either way, nothing needs installing or hosting on a server — it's just a webp
 
 ---
 
-## 3. Hosting photos (important — do this before publishing)
+## 3. Product photos
 
-eBay's description editor does **not** let you upload images directly into the HTML — you have to link to an image that's already hosted somewhere with a public HTTPS URL. Options, easiest first:
+**Using the generator (recommended):** just upload the photo — drag it onto the photo box, or click it to browse. It's resized to a sensible size and compressed in your browser, then embedded directly into the listing HTML as the image itself, not a link to one. Nothing to host, nothing that can go "broken image" later, and it's the same photo file you already have on your computer for the product — no need to touch eBay's gallery first.
 
-- **eBay Picture Manager trick:** upload the photo to your listing's main photo gallery first (where you'd normally add listing images), save as a draft, then right-click the uploaded thumbnail in the gallery and "copy image address" — you get an `i.ebayimg.com` link you can paste into the template's `<img src="...">`.
-- **Your own website:** since yardleypackaging.co.uk is already live, images already hosted there (e.g. product photos from the site) can be linked to directly, as long as the URL is a direct image file (ends in `.jpg`/`.png`) and is HTTPS.
+A small file-size note appears once it's uploaded. If it says the file is large, try a smaller/more compressed source photo — a very large embedded photo makes the listing HTML heavier to load for buyers.
+
+**Editing the raw template by hand, or prefer to link instead:** eBay's description editor doesn't have its own upload button for the description field, so you'd need to link to an image already hosted somewhere with a public HTTPS URL:
+
+- **eBay Picture Manager trick:** upload the photo to your listing's main photo gallery first (where you'd normally add listing images), save as a draft, then right-click the uploaded thumbnail in the gallery and "copy image address" — you get an `i.ebayimg.com` link.
+- **Your own website:** since yardleypackaging.co.uk is already live, images already hosted there can be linked to directly, as long as the URL is a direct image file (ends in `.jpg`/`.png`) and is HTTPS.
 - Avoid free throwaway image hosts — links can expire or get blocked, which leaves broken images in a live listing.
 
-Recommended photo spec: square (1:1), at least 1600×1600px, plain white background, JPG format.
+Recommended photo spec either way: square (1:1) works best, plain white background, JPG or PNG.
 
 ---
 
@@ -102,7 +106,7 @@ The HTML description is only half of a strong listing. For every product, also f
 ## 6. Quick checklist before hitting publish
 
 - [ ] Title and intro written for this product
-- [ ] Real photo URL in place of the placeholder box (or added directly if using the generator)
+- [ ] Real product photo uploaded (or a photo URL pasted, if using the manual link method)
 - [ ] Feature bullets written and accurate
 - [ ] Specifications table filled in
 - [ ] No `{{` placeholders left, if editing the raw template by hand
