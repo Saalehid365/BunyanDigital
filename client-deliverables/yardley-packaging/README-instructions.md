@@ -7,7 +7,9 @@
 
 A reusable listing description for Yardley Packaging's eBay listings, branded in their green/white house style and real logo. Pre-loaded with a real example (Long Cardboard Boxes, £19.90) so it's ready to use today, and built so any future product takes minutes, not manual HTML editing.
 
-**About the logo:** it's embedded directly inside both HTML files as inline image data, not linked to an external file. That means it always displays correctly with zero extra setup — you don't need to host it anywhere, and there's no broken-image risk the way there is with product photos (see Section 3).
+**About the logo:** it's embedded directly inside both HTML files as inline image data, not linked to an external file. That means it always displays correctly with zero extra setup — nothing to host, nothing that can break.
+
+**No product photo in the description:** on purpose. eBay already shows your product photos in its own listing gallery above the description, so putting one inside the description too was just duplicate work for no benefit — it's been left out.
 
 ---
 
@@ -17,7 +19,7 @@ Open `ebay-template-generator.html` in any browser — double-click the file, no
 
 1. It opens pre-loaded with the Long Cardboard Boxes example. Use **"Clear / New listing"** to start a fresh product, or edit the example fields directly for today's listing.
 2. Pick a **Category** from the dropdown (all 13 of Yardley's real categories — Cardboard Boxes, Bubble Wrap, Mailing Bags, Packaging Tapes, etc.). This automatically fills in sensible **Material**, **Colour**, **Recyclable**, **Custom Sizing** and **Feature** suggestions for that product type — everything stays fully editable afterward.
-3. Fill in the **Title** and **Intro line**, and for the photo, **just drag your product photo in or click to upload it** — no need to touch eBay first. The generator resizes and compresses it automatically and bakes it directly into the HTML, so there's nothing to host separately. (If you'd rather link to a photo you've already uploaded to your eBay listing gallery, click "Paste an image URL instead" — see Section 3 for when that's useful.)
+3. Fill in the **Title** and **Intro line**.
 4. Adjust the pre-filled **Features** as needed — each one has its own "Choose a preset" dropdown if you want to swap in a different pre-written feature instead of typing one from scratch — and set **Size options** and **Pack quantity** (dimensions are typed freely since every size varies; quantity has a dropdown of common pack sizes).
 5. The right-hand panel updates live — a rendered preview on top, the raw HTML underneath.
 6. Click **Copy HTML**, then paste it into eBay's listing description (see step 4 below).
@@ -25,7 +27,7 @@ Open `ebay-template-generator.html` in any browser — double-click the file, no
 
 Every dropdown (Material, Colour, Recyclable, Pack Quantity, Custom Sizing, and each Feature) has an **"Other (type below)"** option at the bottom if none of the listed choices fit — picking it reveals a text box to type your own.
 
-It warns you if any field looks like it contains a web address, since links to non-eBay sites aren't allowed in listing descriptions (see Section 4).
+It warns you if any field looks like it contains a web address, since links to non-eBay sites aren't allowed in listing descriptions (see Section 3).
 
 Your in-progress form is auto-saved in the browser as you type, so refreshing the page won't lose your work — but it only remembers the *last* listing you were editing, not a history of every one, so download or copy-paste each listing's HTML before starting the next.
 
@@ -39,11 +41,10 @@ Either way, nothing needs installing or hosting on a server — it's just a webp
 
 ## 1. How to use the raw template directly (manual method)
 
-1. Open `ebay-listing-template.html` in any text editor (Notepad, VS Code, TextEdit).
-2. Replace the two placeholder photo blocks with real image links — see **Section 3** below on photo hosting. Everything else in this file is already filled in with real content from the product page.
-3. Copy the **entire contents** of the file.
-4. In eBay Seller Hub, go to your listing → **Description**. Switch the description editor to **HTML/source mode** — look for a `<>` or "Enter your own HTML" icon near the formatting toolbar (not the default rich-text box).
-5. Paste the code in, then use eBay's **Preview** to check it on both desktop and mobile before publishing.
+1. Open `ebay-listing-template.html` in any text editor (Notepad, VS Code, TextEdit). Everything in this file is already filled in with real content from the Long Cardboard Boxes product page.
+2. Copy the **entire contents** of the file.
+3. In eBay Seller Hub, go to your listing → **Description**. Switch the description editor to **HTML/source mode** — look for a `<>` or "Enter your own HTML" icon near the formatting toolbar (not the default rich-text box).
+4. Paste the code in, then use eBay's **Preview** to check it on both desktop and mobile before publishing.
 
 ---
 
@@ -55,35 +56,18 @@ Either way, nothing needs installing or hosting on a server — it's just a webp
    | Section | What to change |
    |---|---|
    | Product Title + Intro | The `<h1>` title and the one-line intro sentence |
-   | Photo Block | Swap in the new product's photo URL(s) |
    | Feature Bullets | Rewrite the 4–6 bullets for the new product (keep the icon + **bold label** + sentence style) |
    | Specifications | Update Material, Colour, Size options, Pack quantity, Recyclable, Custom sizing rows |
    | Trust Strip / Delivery / "More from Yardley" / Footer | Usually **no changes needed** — these are store-wide, not product-specific |
 
 3. Search the file for `{{` to find every placeholder that still needs filling in — anything in double curly braces hasn't been written yet.
-4. Paste into the new eBay listing the same way as step 4 above.
+4. Paste into the new eBay listing the same way as step 3 above.
 
 **Tip:** keep a small spreadsheet (Product name → SKU → template file used) so it's easy to track which listings use which version as your catalogue grows, and so anyone on the team can find and update the right file later.
 
 ---
 
-## 3. Product photos
-
-**Using the generator (recommended):** just upload the photo — drag it onto the photo box, or click it to browse. It's resized to a sensible size and compressed in your browser, then embedded directly into the listing HTML as the image itself, not a link to one. Nothing to host, nothing that can go "broken image" later, and it's the same photo file you already have on your computer for the product — no need to touch eBay's gallery first.
-
-A small file-size note appears once it's uploaded. If it says the file is large, try a smaller/more compressed source photo — a very large embedded photo makes the listing HTML heavier to load for buyers.
-
-**Editing the raw template by hand, or prefer to link instead:** eBay's description editor doesn't have its own upload button for the description field, so you'd need to link to an image already hosted somewhere with a public HTTPS URL:
-
-- **eBay Picture Manager trick:** upload the photo to your listing's main photo gallery first (where you'd normally add listing images), save as a draft, then right-click the uploaded thumbnail in the gallery and "copy image address" — you get an `i.ebayimg.com` link.
-- **Your own website:** since yardleypackaging.co.uk is already live, images already hosted there can be linked to directly, as long as the URL is a direct image file (ends in `.jpg`/`.png`) and is HTTPS.
-- Avoid free throwaway image hosts — links can expire or get blocked, which leaves broken images in a live listing.
-
-Recommended photo spec either way: square (1:1) works best, plain white background, JPG or PNG.
-
----
-
-## 4. eBay HTML rules — what NOT to add
+## 3. eBay HTML rules — what NOT to add
 
 eBay actively strips or blocks the following from listing descriptions, so don't add them even if you're editing the template further:
 
@@ -97,16 +81,16 @@ The template is built entirely from HTML tables and inline styles specifically b
 
 ---
 
-## 5. Also fill in eBay's own "Item Specifics" fields
+## 4. Also fill in eBay's own "Item Specifics" fields
 
 The HTML description is only half of a strong listing. For every product, also fill in eBay's structured **Item Specifics** fields in the listing form itself (Brand, Type, Material, Colour, MPN, etc.) — these directly affect eBay search ranking and filtering, and they're separate from anything in this HTML file.
 
 ---
 
-## 6. Quick checklist before hitting publish
+## 5. Quick checklist before hitting publish
 
 - [ ] Title and intro written for this product
-- [ ] Real product photo uploaded (or a photo URL pasted, if using the manual link method)
+- [ ] Product photos added to eBay's own listing gallery (not the description — see note above)
 - [ ] Feature bullets written and accurate
 - [ ] Specifications table filled in
 - [ ] No `{{` placeholders left, if editing the raw template by hand
