@@ -83,6 +83,9 @@
   .url{flex:1; font-family:var(--mono); font-size:11px; color:var(--muted); background:var(--paper); border:1px solid var(--line); border-radius:5px; padding:4px 9px;}
   iframe{width:100%; border:0; display:block; background:#fff;}
 
+  .generate-section{display:flex; justify-content:center; padding:10px 0 4px;}
+  .generate-btn{font-size:15px; padding:14px 28px;}
+
   .output-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;}
   .output-head h2{font-size:13px; margin:0; font-family:var(--mono); text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft);}
   textarea#output{
@@ -163,15 +166,21 @@
       <iframe id="previewFrame" title="Listing preview"></iframe>
     </div>
 
-    <div class="output-head">
-      <h2>Generated HTML — copy this into eBay</h2>
-      <div>
-        <button class="primary" id="copyBtn" type="button">Copy HTML</button>
-        <button class="ghost" id="downloadBtn" type="button">Download .html</button>
-        <span class="copied-msg" id="copiedMsg">Copied ✓</span>
-      </div>
+    <div id="generateSection" class="generate-section">
+      <button class="primary generate-btn" id="generateBtn" type="button">Generate HTML →</button>
     </div>
-    <textarea id="output" readonly onclick="this.select()"></textarea>
+
+    <div id="outputSection" style="display:none;">
+      <div class="output-head">
+        <h2>Generated HTML — copy this into eBay</h2>
+        <div>
+          <button class="primary" id="copyBtn" type="button">Copy HTML</button>
+          <button class="ghost" id="downloadBtn" type="button">Download .html</button>
+          <span class="copied-msg" id="copiedMsg">Copied ✓</span>
+        </div>
+      </div>
+      <textarea id="output" readonly onclick="this.select()"></textarea>
+    </div>
 
   </div>
 
@@ -715,16 +724,30 @@ document.getElementById("addExtraSpecBtn").addEventListener("click", () => {
   renderExtraSpecs(); update();
 });
 
+function resetOutputVisibility(){
+  document.getElementById("generateSection").style.display = "flex";
+  document.getElementById("outputSection").style.display = "none";
+}
+
 document.getElementById("loadExampleBtn").addEventListener("click", () => {
   state = JSON.parse(JSON.stringify(EXAMPLE));
   uiOtherMode = { material: false, colour: false, recyclable: false, packQty: false, customSizing: false };
+  resetOutputVisibility();
   renderForm(); update();
 });
 document.getElementById("clearBtn").addEventListener("click", () => {
   if (!confirm("Clear the form for a new listing? This can't be undone.")) return;
   state = JSON.parse(JSON.stringify(BLANK));
   uiOtherMode = { material: false, colour: false, recyclable: false, packQty: false, customSizing: false };
+  resetOutputVisibility();
   renderForm(); update();
+});
+
+document.getElementById("generateBtn").addEventListener("click", () => {
+  document.getElementById("generateSection").style.display = "none";
+  const outputSection = document.getElementById("outputSection");
+  outputSection.style.display = "block";
+  outputSection.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 document.getElementById("copyBtn").addEventListener("click", async () => {
