@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>eBay Listing Generator — Yardley Packaging</title>
+<style>
+  :root{
+    --paper:#faf8f4; --ink:#201d18; --ink-soft:#4a453c; --muted:#8a8172;
+    --line:#e4ddcd; --card:#ffffff; --chrome:#f1ede3;
+    --green:#4f8f2a; --green-dark:#3a6b1e; --green-tint:#eef5e6;
+    --warn-bg:#fbf3e4; --warn-line:#e3c98a; --warn-ink:#7a5b12;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.5;}
+  header{
+    padding:22px 28px; border-bottom:1px solid var(--line); background:var(--card);
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  header h1{font-size:17px; margin:0; font-weight:600;}
+  header p{margin:2px 0 0; font-size:12.5px; color:var(--muted);}
+  .brand-badge{
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    background:#4f8f2a; border-radius:8px; padding:9px 12px;
+  }
+  .brand-badge img{height:20px; width:auto; display:block;}
+  .toolbar{display:flex; gap:8px; flex-wrap:wrap;}
+  button{
+    font-family:var(--sans); font-size:12.5px; font-weight:600; cursor:pointer;
+    border-radius:6px; padding:8px 13px; border:1px solid var(--line); background:var(--card); color:var(--ink);
+  }
+  button:hover{border-color:var(--green);}
+  button.primary{background:var(--green); border-color:var(--green); color:#fff;}
+  button.primary:hover{background:var(--green-dark); border-color:var(--green-dark);}
+  button.ghost{background:transparent;}
+
+  .layout{display:grid; grid-template-columns:minmax(340px,480px) 1fr; gap:0; min-height:calc(100vh - 73px);}
+  @media (max-width:900px){ .layout{grid-template-columns:1fr;} }
+
+  .form-pane{padding:26px 28px 60px; overflow-y:auto; border-right:1px solid var(--line);}
+  .preview-pane{padding:26px 28px 60px; overflow-y:auto; background:var(--chrome);}
+
+  fieldset{border:1px solid var(--line); border-radius:8px; padding:16px 16px 18px; margin:0 0 20px; background:var(--card);}
+  legend{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--green-dark); padding:0 6px;}
+  label{display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin:12px 0 5px;}
+  label:first-of-type{margin-top:0;}
+  input[type=text], textarea, select{
+    width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:6px;
+    font-family:var(--sans); font-size:13.5px; color:var(--ink); background:var(--paper); resize:vertical;
+  }
+  select{appearance:auto; cursor:pointer;}
+  input[type=text]:focus, textarea:focus, select:focus{outline:none; border-color:var(--green);}
+  .hint{font-size:11px; color:var(--muted); margin-top:4px;}
+  .hint a{color:var(--green-dark);}
+
+  .row{display:grid; grid-template-columns:44px 1fr; gap:8px; align-items:start; margin-bottom:12px; padding-bottom:12px; border-bottom:1px dashed var(--line);}
+  .row:last-of-type{border-bottom:none;}
+  .row input.emoji{text-align:center; padding:9px 4px;}
+  .row .fields{display:flex; flex-direction:column; gap:6px;}
+  .row .field-line{display:flex; gap:6px;}
+  .row select.preset-pick{font-size:12px; padding:6px 8px; margin-bottom:2px;}
+  .remove-btn{
+    font-size:11px; padding:4px 8px; border-radius:5px; border:1px solid var(--line); background:var(--paper); color:var(--muted); cursor:pointer;
+  }
+  .remove-btn:hover{color:#b23c3c; border-color:#e3b3b3;}
+  .add-btn{margin-top:4px;}
+
+  .spec-field{margin-bottom:14px;}
+  .spec-row{display:grid; grid-template-columns:1fr 1fr auto; gap:6px; margin-bottom:8px; align-items:center;}
+
+  .warning{
+    display:none; background:var(--warn-bg); border:1px solid var(--warn-line); color:var(--warn-ink);
+    border-radius:8px; padding:12px 14px; font-size:12.5px; margin-bottom:20px;
+  }
+  .warning.show{display:block;}
+
+  .browser{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--card); margin-bottom:22px;}
+  .browser-bar{display:flex; align-items:center; gap:10px; padding:9px 12px; background:var(--chrome); border-bottom:1px solid var(--line);}
+  .dots{display:flex; gap:6px;}
+  .dots span{width:8px; height:8px; border-radius:50%; background:var(--line);}
+  .url{flex:1; font-family:var(--mono); font-size:11px; color:var(--muted); background:var(--paper); border:1px solid var(--line); border-radius:5px; padding:4px 9px;}
+  iframe{width:100%; border:0; display:block; background:#fff;}
+
+  .generate-section{display:flex; justify-content:center; padding:10px 0 4px;}
+  .generate-btn{font-size:15px; padding:14px 28px;}
+
+  .output-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;}
+  .output-head h2{font-size:13px; margin:0; font-family:var(--mono); text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft);}
+  textarea#output{
+    width:100%; height:260px; font-family:var(--mono); font-size:11.5px; padding:14px;
+    border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink-soft);
+  }
+  .copied-msg{font-size:11.5px; color:var(--green-dark); margin-left:8px; opacity:0; transition:opacity .2s;}
+  .copied-msg.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex; align-items:center; gap:14px;">
+    <span class="brand-badge"><img src="data:image/png;base64,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" alt="Yardley Packaging" /></span>
+    <div>
+      <h1>eBay Listing Generator</h1>
+      <p>Yardley Packaging — pick a category, fill in the specifics, copy the HTML.</p>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button class="ghost" id="loadExampleBtn" type="button">Load example (Long Cardboard Boxes)</button>
+    <button class="ghost" id="clearBtn" type="button">Clear / New listing</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <div class="form-pane">
+
+    <div class="warning" id="linkWarning">
+      ⚠️ <strong>Possible external link detected</strong> in your text below. eBay blocks links to non-eBay websites in listing descriptions and may remove the listing — double-check your wording doesn't include a full web address (yardleypackaging.co.uk, http://, etc.).
+    </div>
+
+    <fieldset>
+      <legend>Product</legend>
+      <label for="category">Category</label>
+      <select id="category"></select>
+      <p class="hint">Choosing a category fills in sensible Material, Colour, Recyclable, Custom Sizing and Feature suggestions below, pulled from Yardley's own range — edit anything afterward.</p>
+
+      <label for="title">Title</label>
+      <input type="text" id="title" placeholder="e.g. Long Cardboard Boxes" />
+
+      <label for="intro">Intro line</label>
+      <textarea id="intro" rows="2" placeholder="One sentence describing what it's for and why it's good."></textarea>
+
+    </fieldset>
+
+    <fieldset>
+      <legend>Features (4–6 recommended)</legend>
+      <div id="featuresList"></div>
+      <button class="add-btn ghost" id="addFeatureBtn" type="button">+ Add feature</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Specifications</legend>
+      <div id="specsFixed"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Additional spec rows (optional)</legend>
+      <p class="hint" style="margin-top:0;">For anything not covered above — e.g. Wall Type, Load Capacity, Sheet Thickness.</p>
+      <div id="extraSpecsList"></div>
+      <button class="add-btn ghost" id="addExtraSpecBtn" type="button">+ Add row</button>
+    </fieldset>
+
+    <p class="hint">The trust strip, delivery/returns block, cross-sell section and footer stay fixed across every listing, so they're not editable here.</p>
+
+  </div>
+
+  <div class="preview-pane">
+
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url">ebay.co.uk/itm/… · description preview</div>
+      </div>
+      <iframe id="previewFrame" title="Listing preview"></iframe>
+    </div>
+
+    <div id="generateSection" class="generate-section">
+      <button class="primary generate-btn" id="generateBtn" type="button">Generate HTML →</button>
+    </div>
+
+    <div id="outputSection" style="display:none;">
+      <div class="output-head">
+        <h2>Generated HTML — copy this into eBay</h2>
+        <div>
+          <button class="primary" id="copyBtn" type="button">Copy HTML</button>
+          <button class="ghost" id="downloadBtn" type="button">Download .html</button>
+          <span class="copied-msg" id="copiedMsg">Copied ✓</span>
+        </div>
+      </div>
+      <textarea id="output" readonly onclick="this.select()"></textarea>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+/* ---------- category presets (real Yardley Packaging categories) ---------- */
+const CATEGORY_PRESETS = {
+  "Cardboard Boxes": {
+    materials: ["Single-wall corrugated cardboard", "Double-wall corrugated cardboard", "Triple-wall corrugated cardboard"],
+    colours: ["Brown kraft", "White"],
+    recyclable: "Yes — 100% recyclable",
+    customSizing: "Available on request — contact us",
+    features: [
+      { emoji: "🛡️", label: "Durable Construction", text: "Built from sturdy corrugated cardboard to protect goods during transit and storage." },
+      { emoji: "📦", label: "Flat Packed", text: "Easy to store, ship, and handle before assembly." },
+      { emoji: "🌿", label: "Eco-Friendly Choice", text: "Fully recyclable and sustainably sourced materials." },
+      { emoji: "✂️", label: "Custom Sizing Available", text: "Bespoke sizes offered for specific requirements — just contact our team." },
+      { emoji: "📏", label: "Fits Irregular Shapes", text: "Designed specifically for long, oversized, or awkwardly shaped items." }
+    ]
+  },
+  "Bubble Wrap": {
+    materials: ["Polyethylene (PE) bubble wrap", "Anti-static bubble wrap", "Biodegradable bubble wrap"],
+    colours: ["Clear", "Silver (anti-static)"],
+    recyclable: "Yes — check local soft plastics recycling",
+    customSizing: "Not available — standard sizes only",
+    features: [
+      { emoji: "🛡️", label: "Shock Absorbing", text: "Cushions fragile items against knocks and drops in transit." },
+      { emoji: "💧", label: "Moisture Resistant", text: "Helps protect contents from damp and condensation." },
+      { emoji: "🪶", label: "Lightweight", text: "Adds protection without adding significant postage weight." },
+      { emoji: "📏", label: "Easy to Cut to Size", text: "Wrap exactly as much as you need, with minimal waste." },
+      { emoji: "♻️", label: "Reusable", text: "Sturdy enough to reuse for multiple shipments." }
+    ]
+  },
+  "Bubble Envelopes": {
+    materials: ["Kraft paper outer with bubble lining", "White paper outer with bubble lining"],
+    colours: ["Brown kraft", "White"],
+    recyclable: "Partially recyclable",
+    customSizing: "Not available — standard sizes only",
+    features: [
+      { emoji: "🛡️", label: "Cushioned Protection", text: "Padded lining protects contents from knocks during transit." },
+      { emoji: "✉️", label: "Self-Seal Strip", text: "Quick, secure closure with no tape needed." },
+      { emoji: "🪶", label: "Lightweight", text: "Keeps postage costs down versus boxes." },
+      { emoji: "📮", label: "Letterbox Friendly", text: "Sized to fit through standard letterboxes (smaller sizes)." },
+      { emoji: "🖊️", label: "Easy to Write or Print On", text: "Smooth outer surface for labels and addressing." }
+    ]
+  },
+  "Kraft Paper Bags": {
+    materials: ["Kraft paper — twisted handle", "Kraft paper — flat handle"],
+    colours: ["Brown kraft", "White"],
+    recyclable: "Yes — 100% recyclable",
+    customSizing: "Available on request — contact us",
+    features: [
+      { emoji: "🌿", label: "Eco-Friendly Choice", text: "Fully recyclable and biodegradable — a sustainable alternative to plastic." },
+      { emoji: "💪", label: "Strong Handles", text: "Reinforced handles for comfortable, secure carrying." },
+      { emoji: "🎁", label: "Retail-Ready Look", text: "Smart, branded finish for shops and gifting." },
+      { emoji: "📦", label: "Flat Packed", text: "Compact for storage until needed." },
+      { emoji: "🖊️", label: "Printable Surface", text: "Easy to brand with your own stamp or label." }
+    ]
+  },
+  "Labels & A4 Paper": {
+    materials: ["Self-adhesive label paper", "Standard 80gsm A4 paper"],
+    colours: ["White"],
+    recyclable: "Yes — 100% recyclable",
+    customSizing: "Not available — standard sizes only",
+    features: [
+      { emoji: "🖨️", label: "Printer Compatible", text: "Works with standard inkjet and laser printers." },
+      { emoji: "🏷️", label: "Strong Adhesive", text: "Secure stick that won't peel off in transit." },
+      { emoji: "📄", label: "Smooth Finish", text: "Crisp, smudge-free printing every time." },
+      { emoji: "📦", label: "Bulk Packs Available", text: "Stock up and save on frequent print runs." },
+      { emoji: "🌿", label: "Eco-Friendly Choice", text: "Sustainably sourced paper stock." }
+    ]
+  },
+  "Mailing Bags": {
+    materials: ["Co-extruded polythene (opaque)", "Recycled polythene"],
+    colours: ["Grey", "Black", "White"],
+    recyclable: "Yes — check local soft plastics recycling",
+    customSizing: "Not available — standard sizes only",
+    features: [
+      { emoji: "💧", label: "Waterproof", text: "Keeps contents dry in transit, whatever the weather." },
+      { emoji: "🔒", label: "Tamper-Evident Seal", text: "Self-seal strip shows clearly if a bag has been opened." },
+      { emoji: "🪶", label: "Lightweight", text: "Keeps postage costs down versus boxes." },
+      { emoji: "🙈", label: "Opaque Design", text: "Keeps contents private and discreet." },
+      { emoji: "📏", label: "Multiple Sizes Available", text: "A size for everything from small items to bulky parcels." }
+    ]
+  },
+  "Packaging Tapes": {
+    materials: ["Polypropylene tape", "Paper (kraft) tape", "Fragile-print tape"],
+    colours: ["Clear", "Brown", "Printed"],
+    recyclable: "Partially recyclable",
+    customSizing: "Not available — standard sizes only",
+    features: [
+      { emoji: "💪", label: "Strong Hold", text: "High-tack adhesive for a secure seal that lasts in transit." },
+      { emoji: "📏", label: "Easy to Apply", text: "Smooth unwind with a clean, straight tear." },
+      { emoji: "📦", label: "Ideal for Sealing Boxes", text: "Sized for standard box-sealing and bundling." },
+      { emoji: "🌿", label: "Eco-Friendly Option Available", text: "Paper-based tape available for plastic-free packing." },
+      { emoji: "🏷️", label: "Custom Print Available", text: "Add your own branding — just contact our team." }
+    ]
+  },
+  "Pallet Wrap & Stretch Film": {
+    materials: ["Blown stretch film", "Cast stretch film"],
+    colours: ["Clear", "Black"],
+    recyclable: "Yes — check local soft plastics recycling",
+    customSizing: "Not available — standard sizes only",
+    features: [
+      { emoji: "💪", label: "High Stretch & Hold", text: "Wraps tight and stays secure to keep pallet loads stable." },
+      { emoji: "🛡️", label: "Load Protection", text: "Shields goods from dust, moisture, and damage in transit and storage." },
+      { emoji: "🪶", label: "Puncture Resistant", text: "Durable film that resists tearing under load." },
+      { emoji: "📏", label: "Suitable for Hand or Machine Use", text: "Fits standard pallet wrapping equipment." },
+      { emoji: "🌿", label: "Eco-Friendly Option Available", text: "Recyclable stretch film for sustainable operations." }
+    ]
+  },
+  "Paper Sheets & Cardboard Rolls": {
+    materials: ["Kraft paper sheets", "Corrugated cardboard roll"],
+    colours: ["Brown kraft", "White"],
+    recyclable: "Yes — 100% recyclable",
+    customSizing: "Available on request — contact us",
+    features: [
+      { emoji: "🛡️", label: "Protective Cushioning", text: "Ideal void fill and wrapping for fragile items." },
+      { emoji: "📏", label: "Cut to Size", text: "Flexible rolls and sheets to suit any size job." },
+      { emoji: "🌿", label: "Eco-Friendly Choice", text: "Fully recyclable, plastic-free packing material." },
+      { emoji: "📦", label: "Bulk Rolls Available", text: "Efficient for high-volume packing operations." },
+      { emoji: "🖊️", label: "Ideal for Wrapping & Interleaving", text: "Great for wrapping, layering, and surface protection." }
+    ]
+  },
+  "Polythene Bags & Rolls": {
+    materials: ["Low-density polythene (LDPE)"],
+    colours: ["Clear", "Black"],
+    recyclable: "Yes — check local soft plastics recycling",
+    customSizing: "Not available — standard sizes only",
+    features: [
+      { emoji: "💧", label: "Waterproof", text: "Protects contents from moisture and dirt." },
+      { emoji: "🪶", label: "Lightweight & Flexible", text: "Easy to handle, store, and use across varied item sizes." },
+      { emoji: "📏", label: "Multiple Sizes Available", text: "From small parts bags to large liners." },
+      { emoji: "🔒", label: "Food-Safe Options Available", text: "Suitable for food contact where specified." },
+      { emoji: "📦", label: "Sold in Rolls or Flat Packs", text: "Convenient dispensing for regular use." }
+    ]
+  },
+  "Corner & Edge Protectors": {
+    materials: ["Solid fibreboard edge protector", "Foam corner protector"],
+    colours: ["Brown", "White"],
+    recyclable: "Yes — 100% recyclable",
+    customSizing: "Available on request — contact us",
+    features: [
+      { emoji: "🛡️", label: "Impact Protection", text: "Guards corners and edges from knocks during transit and storage." },
+      { emoji: "💪", label: "Strapping Compatible", text: "Spreads strap tension to prevent load damage." },
+      { emoji: "📏", label: "Custom Lengths Available", text: "Cut or ordered to fit your pallet or product size." },
+      { emoji: "🌿", label: "Eco-Friendly Choice", text: "Fully recyclable fibreboard construction." },
+      { emoji: "📦", label: "Stackable & Space-Saving", text: "Nest together for compact storage." }
+    ]
+  },
+  "Strapping": {
+    materials: ["Polypropylene (PP) strapping", "Polyester (PET) strapping"],
+    colours: ["Black", "Green", "Clear"],
+    recyclable: "Yes — check local soft plastics recycling",
+    customSizing: "Not available — standard sizes only",
+    features: [
+      { emoji: "💪", label: "High Tensile Strength", text: "Secures heavy or bulky loads for safe transit." },
+      { emoji: "🛡️", label: "Load Stability", text: "Keeps pallets and bundles secure during handling and transport." },
+      { emoji: "📏", label: "Suitable for Hand or Machine Use", text: "Compatible with standard strapping tools." },
+      { emoji: "🌦️", label: "Weather Resistant", text: "Holds up across a range of storage and transit conditions." },
+      { emoji: "♻️", label: "Reusable Options Available", text: "Certain strap types can be re-tensioned and reused." }
+    ]
+  },
+  "Void & Loose Fill": {
+    materials: ["Loose fill packing peanuts (biodegradable)", "Paper void fill"],
+    colours: ["White", "Brown kraft"],
+    recyclable: "Biodegradable / compostable",
+    customSizing: "Not available — standard sizes only",
+    features: [
+      { emoji: "🛡️", label: "Cushioning Protection", text: "Fills empty space to stop items shifting and colliding in transit." },
+      { emoji: "🌿", label: "Eco-Friendly Options Available", text: "Biodegradable and recyclable fill materials." },
+      { emoji: "🪶", label: "Lightweight", text: "Minimal added weight to keep postage costs down." },
+      { emoji: "📦", label: "Reduces Box Size Needed", text: "Fills gaps efficiently, cutting down on oversized packaging." },
+      { emoji: "💨", label: "Easy to Dispense", text: "Simple to pour or fill by hand for quick packing." }
+    ]
+  },
+  "Other": { materials: [], colours: [], recyclable: "", customSizing: "", features: [] }
+};
+const CATEGORIES = Object.keys(CATEGORY_PRESETS);
+const RECYCLABLE_OPTIONS = ["Yes — 100% recyclable", "Yes — check local soft plastics recycling", "Partially recyclable", "Biodegradable / compostable", "Not recyclable"];
+const PACK_QTY_OPTIONS = ["Sold individually", "Pack of 5", "Pack of 10", "Pack of 20", "Pack of 25", "Pack of 50", "Pack of 100"];
+const CUSTOM_SIZING_OPTIONS = ["Available on request — contact us", "Bespoke sizes made to order", "Not available — standard sizes only"];
+const SPEC_LABELS = { material: "Material", colour: "Colour", recyclable: "Recyclable", packQty: "Pack quantity", customSizing: "Custom sizing" };
+
+/* ---------- state ---------- */
+const EXAMPLE = {
+  category: "Cardboard Boxes",
+  title: "Long Cardboard Boxes",
+  intro: "Ideal for shipping, storing, or organising large, irregular items — strong, sustainable, and space-saving.",
+  material: "Single-wall corrugated cardboard",
+  colour: "Brown kraft",
+  sizeOptions: "",
+  packQty: "Sold individually",
+  recyclable: "Yes — 100% recyclable",
+  customSizing: "Available on request — contact us",
+  features: JSON.parse(JSON.stringify(CATEGORY_PRESETS["Cardboard Boxes"].features)),
+  extraSpecs: []
+};
+const BLANK = {
+  category: "", title: "", intro: "",
+  material: "", colour: "", sizeOptions: "", packQty: "", recyclable: "", customSizing: "",
+  features: [{ emoji: "•", label: "", text: "" }],
+  extraSpecs: []
+};
+
+const STORAGE_KEY = "yardley-ebay-generator-state-v2";
+let state = loadState() || JSON.parse(JSON.stringify(EXAMPLE));
+let uiOtherMode = { material: false, colour: false, recyclable: false, packQty: false, customSizing: false };
+
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return (typeof parsed.category !== "undefined") ? parsed : null;
+  } catch(e){ return null; }
+}
+function saveState(){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+}
+function esc(s){
+  return (s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+/* ---------- HTML generation ---------- */
+function buildFeatureRows(){
+  const items = state.features.filter(f => f.label || f.text);
+  let rows = "";
+  for (let i = 0; i < items.length; i += 2){
+    const a = items[i], b = items[i+1];
+    rows += `<tr>
+      <td width="50%" valign="top" style="padding:10px 12px 10px 0;font-size:14px;line-height:1.6;color:#333333;"><span style="font-size:16px;">${esc(a.emoji)}</span> <strong>${esc(a.label)}:</strong> ${esc(a.text)}</td>
+      <td width="50%" valign="top" style="padding:10px 0 10px 12px;font-size:14px;line-height:1.6;color:#333333;">${b ? `<span style="font-size:16px;">${esc(b.emoji)}</span> <strong>${esc(b.label)}:</strong> ${esc(b.text)}` : ""}</td>
+    </tr>`;
+  }
+  return rows || `<tr><td colspan="2" style="padding:10px 0;font-size:13px;color:#999;">Add features on the left to see them here.</td></tr>`;
+}
+
+function buildSpecRows(){
+  const fixed = [
+    ["Material", state.material],
+    ["Colour", state.colour],
+    ["Size options", state.sizeOptions],
+    ["Pack quantity", state.packQty],
+    ["Recyclable", state.recyclable],
+    ["Custom sizing", state.customSizing]
+  ].filter(([,v]) => v);
+  const extra = state.extraSpecs.filter(s => s.label || s.value).map(s => [s.label, s.value]);
+  const all = [...fixed, ...extra];
+  if (!all.length) return `<tr><td style="padding:10px 14px;font-size:13px;color:#999;">Fill in specifications on the left.</td></tr>`;
+  return all.map(([label, value]) => `<tr>
+    <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;width:38%;">${esc(label)}</td>
+    <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">${esc(value)}</td>
+  </tr>`).join("");
+}
+
+function generateHTML(){
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:800px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;background-color:#ffffff;border:1px solid #e2e6dc;border-collapse:collapse;">
+
+  <tr>
+    <td style="background-color:#4f8f2a;padding:22px 24px;text-align:center;" bgcolor="#4f8f2a">
+      <img src="data:image/png;base64,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" alt="Yardley Packaging" width="200" height="47" style="display:block;margin:0 auto;width:200px;height:47px;max-width:60%;height:auto;" />
+      <div style="font-size:13px;color:#e7f2dc;margin-top:10px;">UK Packaging Supplies — Boxes, Wrap &amp; Mailing Essentials</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:28px 28px 8px 28px;">
+      <h1 style="margin:0 0 10px 0;font-size:26px;line-height:1.25;color:#222222;font-family:Arial,Helvetica,sans-serif;">${esc(state.title) || "{{PRODUCT TITLE}}"}</h1>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#4a4a4a;">${esc(state.intro) || "{{ONE-LINE INTRO}}"}</p>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:0 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        ${buildFeatureRows()}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:18px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e6dc;border-collapse:collapse;">
+        <tr>
+          <td colspan="2" style="background-color:#eef5e6;padding:10px 14px;font-size:13px;font-weight:bold;color:#3f6e22;text-transform:uppercase;letter-spacing:0.5px;" bgcolor="#eef5e6">Specifications</td>
+        </tr>
+        ${buildSpecRows()}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:22px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">🚚<br />Fast UK<br />Dispatch</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">🌿<br />Eco-Friendly &amp;<br />Recyclable</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">📦<br />Bulk Discounts<br />Available</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">✂️<br />Custom Sizes<br />on Request</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:18px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e6dc;border-collapse:collapse;">
+        <tr>
+          <td style="padding:14px 16px;font-size:13px;line-height:1.7;color:#333333;">
+            <strong style="color:#222222;">Delivery:</strong> Dispatched quickly from our UK warehouse — see the postage options on this listing for delivery times.<br />
+            <strong style="color:#222222;">Returns:</strong> Not the right fit? See our returns policy on this listing, or message us before ordering if you need help choosing a size.<br />
+            <strong style="color:#222222;">Need a bespoke size or a bulk quantity?</strong> Call us on 0121 769 1411 or send us a message through eBay and we'll help you out.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:18px 28px 24px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f7f8f5;border:1px solid #e2e6dc;" bgcolor="#f7f8f5">
+        <tr>
+          <td style="padding:16px 18px;">
+            <div style="font-size:14px;font-weight:bold;color:#222222;margin-bottom:8px;">Complete your packaging order</div>
+            <div style="font-size:13px;line-height:1.7;color:#555555;">
+              We also stock: Bubble Wrap &amp; Envelopes · Kraft Paper Bags · Mailing Bags · Packaging Tapes · Pallet Wrap &amp; Stretch Film · Void &amp; Loose Fill · Corner &amp; Edge Protectors · Strapping.<br />
+              Search <strong>"Yardley Packaging"</strong> on eBay or check our other listings to see the full range.
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="background-color:#4f8f2a;padding:16px 24px;text-align:center;" bgcolor="#4f8f2a">
+      <div style="font-size:13px;color:#ffffff;">Yardley Packaging &nbsp;|&nbsp; 0121 769 1411 &nbsp;|&nbsp; VAT invoices available on request</div>
+    </td>
+  </tr>
+
+</table>`;
+}
+
+function checkLinkWarning(){
+  const textBlobs = [
+    state.title, state.intro, state.material, state.colour, state.sizeOptions,
+    ...state.features.flatMap(f => [f.label, f.text]),
+    ...state.extraSpecs.flatMap(s => [s.label, s.value])
+  ];
+  const joined = textBlobs.join(" ").toLowerCase();
+  const suspicious = /https?:\/\/|www\.|\.co\.uk|\.com\b/.test(joined);
+  document.getElementById("linkWarning").classList.toggle("show", suspicious);
+}
+
+/* ---------- rendering ---------- */
+function currentCategoryPreset(){
+  return CATEGORY_PRESETS[state.category] || CATEGORY_PRESETS["Other"];
+}
+
+function buildSpecFieldHTML(field, options){
+  const val = state[field] || "";
+  const isOther = uiOtherMode[field] || (val && !options.includes(val));
+  let html = `<div class="spec-field"><label>${SPEC_LABELS[field]}</label><select data-select="${field}">`;
+  html += `<option value="">Choose…</option>`;
+  options.forEach(o => { html += `<option value="${esc(o)}" ${!isOther && o === val ? "selected" : ""}>${esc(o)}</option>`; });
+  html += `<option value="__other__" ${isOther ? "selected" : ""}>Other (type below)</option>`;
+  html += `</select>`;
+  html += `<input type="text" data-other="${field}" placeholder="Type ${SPEC_LABELS[field].toLowerCase()}" value="${isOther ? esc(val) : ""}" style="margin-top:6px;${isOther ? "" : "display:none;"}" />`;
+  html += `</div>`;
+  return html;
+}
+
+function renderSpecsFixed(){
+  const preset = currentCategoryPreset();
+  const wrap = document.getElementById("specsFixed");
+  wrap.innerHTML =
+    buildSpecFieldHTML("material", preset.materials) +
+    buildSpecFieldHTML("colour", preset.colours) +
+    `<div class="spec-field"><label>Size options</label><input type="text" data-text="sizeOptions" value="${esc(state.sizeOptions)}" placeholder="e.g. 12x12x12in, 18x18x18in, 24x12x12in" /></div>` +
+    buildSpecFieldHTML("packQty", PACK_QTY_OPTIONS) +
+    buildSpecFieldHTML("recyclable", RECYCLABLE_OPTIONS) +
+    buildSpecFieldHTML("customSizing", CUSTOM_SIZING_OPTIONS);
+}
+
+function featurePresetOptionsHTML(){
+  let html = `<option value="">— Choose a preset (optional) —</option>`;
+  CATEGORIES.forEach(cat => {
+    const feats = CATEGORY_PRESETS[cat].features;
+    if (!feats.length) return;
+    html += `<optgroup label="${esc(cat)}">`;
+    feats.forEach((f, idx) => {
+      html += `<option value="${esc(cat)}||${idx}">${esc(f.emoji)} ${esc(f.label)}</option>`;
+    });
+    html += `</optgroup>`;
+  });
+  return html;
+}
+const FEATURE_PRESET_OPTIONS_HTML = featurePresetOptionsHTML();
+
+function renderFeatures(){
+  const wrap = document.getElementById("featuresList");
+  wrap.innerHTML = "";
+  state.features.forEach((f, i) => {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `
+      <input type="text" class="emoji" maxlength="2" value="${esc(f.emoji)}" data-i="${i}" data-k="emoji" />
+      <div class="fields">
+        <select class="preset-pick" data-preset-i="${i}">${FEATURE_PRESET_OPTIONS_HTML}</select>
+        <div class="field-line">
+          <input type="text" placeholder="Feature label, e.g. Fits Irregular Shapes" value="${esc(f.label)}" data-i="${i}" data-k="label" style="flex:1;" />
+          <button class="remove-btn" data-remove="${i}" type="button">Remove</button>
+        </div>
+        <textarea rows="2" placeholder="One sentence about this feature." data-i="${i}" data-k="text">${esc(f.text)}</textarea>
+      </div>`;
+    wrap.appendChild(row);
+  });
+}
+
+function renderExtraSpecs(){
+  const wrap = document.getElementById("extraSpecsList");
+  wrap.innerHTML = "";
+  state.extraSpecs.forEach((s, i) => {
+    const row = document.createElement("div");
+    row.className = "spec-row";
+    row.innerHTML = `
+      <input type="text" placeholder="Label, e.g. Wall Type" value="${esc(s.label)}" data-i="${i}" data-k="label" />
+      <input type="text" placeholder="Value" value="${esc(s.value)}" data-i="${i}" data-k="value" />
+      <button class="remove-btn" data-removeExtra="${i}" type="button">Remove</button>`;
+    wrap.appendChild(row);
+  });
+}
+
+function renderCategorySelect(){
+  const sel = document.getElementById("category");
+  sel.innerHTML = `<option value="">Choose a category…</option>` +
+    CATEGORIES.map(c => `<option value="${esc(c)}" ${state.category === c ? "selected" : ""}>${esc(c)}</option>`).join("");
+}
+
+function renderForm(){
+  renderCategorySelect();
+  document.getElementById("title").value = state.title;
+  document.getElementById("intro").value = state.intro;
+  renderFeatures();
+  renderSpecsFixed();
+  renderExtraSpecs();
+}
+
+function update(){
+  const html = generateHTML();
+  document.getElementById("output").value = html;
+  document.getElementById("previewFrame").srcdoc = `<!DOCTYPE html><html><body style="margin:0;padding:20px;background:#ffffff;font-family:Arial,Helvetica,sans-serif;">${html}</body></html>`;
+  checkLinkWarning();
+  saveState();
+}
+
+/* ---------- events ---------- */
+document.getElementById("category").addEventListener("change", e => {
+  const newCat = e.target.value;
+  const hasContent = state.material || state.colour || state.features.some(f => f.label || f.text);
+  if (hasContent && !confirm("Applying this category replaces Material, Colour, Recyclable, Custom Sizing and Features with typical defaults for it. Continue?")){
+    e.target.value = state.category;
+    return;
+  }
+  state.category = newCat;
+  const preset = CATEGORY_PRESETS[newCat] || CATEGORY_PRESETS["Other"];
+  state.material = preset.materials[0] || "";
+  state.colour = preset.colours[0] || "";
+  state.recyclable = preset.recyclable || "";
+  state.customSizing = preset.customSizing || "";
+  state.features = preset.features.length ? JSON.parse(JSON.stringify(preset.features)) : [{ emoji: "•", label: "", text: "" }];
+  uiOtherMode = { material: false, colour: false, recyclable: false, packQty: false, customSizing: false };
+  renderForm(); update();
+});
+
+["title", "intro"].forEach(id => {
+  document.getElementById(id).addEventListener("input", e => { state[id] = e.target.value; update(); });
+});
+
+document.getElementById("featuresList").addEventListener("input", e => {
+  const t = e.target;
+  if (t.dataset.i !== undefined){ state.features[+t.dataset.i][t.dataset.k] = t.value; update(); }
+});
+document.getElementById("featuresList").addEventListener("click", e => {
+  if (e.target.dataset.remove !== undefined){
+    state.features.splice(+e.target.dataset.remove, 1);
+    renderFeatures(); update();
+  }
+});
+document.getElementById("featuresList").addEventListener("change", e => {
+  if (e.target.dataset.presetI !== undefined){
+    const val = e.target.value;
+    if (val){
+      const [cat, idx] = val.split("||");
+      const preset = CATEGORY_PRESETS[cat].features[+idx];
+      state.features[+e.target.dataset.presetI] = { ...preset };
+      renderFeatures(); update();
+    }
+  }
+});
+document.getElementById("addFeatureBtn").addEventListener("click", () => {
+  state.features.push({ emoji: "•", label: "", text: "" });
+  renderFeatures(); update();
+});
+
+document.getElementById("specsFixed").addEventListener("change", e => {
+  const field = e.target.dataset.select;
+  if (!field) return;
+  const v = e.target.value;
+  if (v === "__other__"){
+    uiOtherMode[field] = true;
+    state[field] = "";
+    renderSpecsFixed(); update();
+    const other = document.querySelector(`[data-other="${field}"]`);
+    if (other) other.focus();
+  } else {
+    uiOtherMode[field] = false;
+    state[field] = v;
+    renderSpecsFixed(); update();
+  }
+});
+document.getElementById("specsFixed").addEventListener("input", e => {
+  if (e.target.dataset.other){ state[e.target.dataset.other] = e.target.value; update(); }
+  else if (e.target.dataset.text){ state[e.target.dataset.text] = e.target.value; update(); }
+});
+
+document.getElementById("extraSpecsList").addEventListener("input", e => {
+  const t = e.target;
+  if (t.dataset.i !== undefined){ state.extraSpecs[+t.dataset.i][t.dataset.k] = t.value; update(); }
+});
+document.getElementById("extraSpecsList").addEventListener("click", e => {
+  if (e.target.dataset.removeExtra !== undefined){
+    state.extraSpecs.splice(+e.target.dataset.removeExtra, 1);
+    renderExtraSpecs(); update();
+  }
+});
+document.getElementById("addExtraSpecBtn").addEventListener("click", () => {
+  state.extraSpecs.push({ label: "", value: "" });
+  renderExtraSpecs(); update();
+});
+
+function resetOutputVisibility(){
+  document.getElementById("generateSection").style.display = "flex";
+  document.getElementById("outputSection").style.display = "none";
+}
+
+document.getElementById("loadExampleBtn").addEventListener("click", () => {
+  state = JSON.parse(JSON.stringify(EXAMPLE));
+  uiOtherMode = { material: false, colour: false, recyclable: false, packQty: false, customSizing: false };
+  resetOutputVisibility();
+  renderForm(); update();
+});
+document.getElementById("clearBtn").addEventListener("click", () => {
+  if (!confirm("Clear the form for a new listing? This can't be undone.")) return;
+  state = JSON.parse(JSON.stringify(BLANK));
+  uiOtherMode = { material: false, colour: false, recyclable: false, packQty: false, customSizing: false };
+  resetOutputVisibility();
+  renderForm(); update();
+});
+
+document.getElementById("generateBtn").addEventListener("click", () => {
+  document.getElementById("generateSection").style.display = "none";
+  const outputSection = document.getElementById("outputSection");
+  outputSection.style.display = "block";
+  outputSection.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.getElementById("copyBtn").addEventListener("click", async () => {
+  const out = document.getElementById("output");
+  out.select();
+  try { await navigator.clipboard.writeText(out.value); } catch(e){ document.execCommand("copy"); }
+  const msg = document.getElementById("copiedMsg");
+  msg.classList.add("show");
+  setTimeout(() => msg.classList.remove("show"), 1500);
+});
+
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  const blob = new Blob([document.getElementById("output").value], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const slug = (state.title || "listing").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  a.href = url; a.download = `${slug || "listing"}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+renderForm();
+update();
+</script>
+</body>
+</html>

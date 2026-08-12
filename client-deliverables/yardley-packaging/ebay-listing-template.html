@@ -1,0 +1,169 @@
+<!--
+  YARDLEY PACKAGING — REUSABLE EBAY LISTING TEMPLATE
+  Built by Bunyan Digital — August 2026
+
+  HOW THIS FILE WORKS
+  --------------------
+  This is a single, self-contained block of HTML. No JavaScript, no external
+  stylesheets, no forms, no iframes — eBay strips or blocks all of those, so
+  everything here is inline styles + tables, which is the safest combination
+  for eBay's listing description editor.
+
+  It is pre-filled with a REAL example listing (Long Cardboard Boxes, £19.90)
+  taken from yardleypackaging.co.uk, so you can paste it straight into that
+  eBay listing today. To reuse it for a different product, search this file
+  for the token {{ and replace every {{PLACEHOLDER}} — see the full
+  instructions doc (README-instructions.md) in this same folder for the
+  step-by-step guide and the do/don't list for eBay's HTML rules.
+
+  Do not paste this into eBay with the surrounding <!-- comment --> tags
+  removed manually — leave this comment block in, eBay ignores HTML
+  comments and it keeps this file self-documenting for whoever edits it
+  next.
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:800px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;background-color:#ffffff;border:1px solid #e2e6dc;border-collapse:collapse;">
+
+  <!-- ============ BRAND HEADER ============ -->
+  <tr>
+    <td style="background-color:#4f8f2a;padding:22px 24px;text-align:center;" bgcolor="#4f8f2a">
+      <img src="data:image/png;base64,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" alt="Yardley Packaging" width="200" height="47" style="display:block;margin:0 auto;width:200px;height:47px;max-width:60%;height:auto;" />
+      <div style="font-size:13px;color:#e7f2dc;margin-top:10px;">UK Packaging Supplies — Boxes, Wrap &amp; Mailing Essentials</div>
+    </td>
+  </tr>
+
+  <!-- ============ PRODUCT TITLE + INTRO ============ -->
+  <!-- EDIT PER LISTING: title + intro line -->
+  <tr>
+    <td style="padding:28px 28px 8px 28px;">
+      <h1 style="margin:0 0 10px 0;font-size:26px;line-height:1.25;color:#222222;font-family:Arial,Helvetica,sans-serif;">{{PRODUCT_TITLE — e.g. Long Cardboard Boxes}}</h1>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#4a4a4a;">{{ONE-LINE INTRO — e.g. Ideal for shipping, storing, or organising large, irregular items — strong, sustainable, and space-saving.}}</p>
+    </td>
+  </tr>
+
+  <!-- ============ FEATURE BULLETS ============ -->
+  <!-- EDIT PER LISTING: 4–6 features, same icon + bold label + sentence style used across the Yardley site. -->
+  <tr>
+    <td style="padding:0 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="50%" valign="top" style="padding:10px 12px 10px 0;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">📏</span> <strong>Fits Irregular Shapes:</strong> Designed specifically for long, oversized, or awkwardly shaped items.
+          </td>
+          <td width="50%" valign="top" style="padding:10px 0 10px 12px;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">🛡️</span> <strong>Durable Construction:</strong> Built from sturdy corrugated cardboard to protect goods during transit and storage.
+          </td>
+        </tr>
+        <tr>
+          <td width="50%" valign="top" style="padding:10px 12px 10px 0;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">🌿</span> <strong>Eco-Friendly Choice:</strong> Fully recyclable and sustainably sourced materials.
+          </td>
+          <td width="50%" valign="top" style="padding:10px 0 10px 12px;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">📦</span> <strong>Flat Packed:</strong> Easy to store, ship, and handle before assembly.
+          </td>
+        </tr>
+        <tr>
+          <td width="50%" valign="top" style="padding:10px 12px 10px 0;font-size:14px;line-height:1.6;color:#333333;">
+            <span style="font-size:16px;">✂️</span> <strong>Custom Sizing Available:</strong> Bespoke sizes offered for specific requirements — just contact our team.
+          </td>
+          <td width="50%" valign="top" style="padding:10px 0 10px 12px;font-size:14px;line-height:1.6;color:#333333;">
+            {{OPTIONAL 6TH FEATURE — delete this cell, or its row, if you only have 5 features}}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ SPECIFICATIONS TABLE ============ -->
+  <!-- EDIT PER LISTING: every value in the right-hand column. -->
+  <tr>
+    <td style="padding:18px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e6dc;border-collapse:collapse;">
+        <tr>
+          <td colspan="2" style="background-color:#eef5e6;padding:10px 14px;font-size:13px;font-weight:bold;color:#3f6e22;text-transform:uppercase;letter-spacing:0.5px;" bgcolor="#eef5e6">Specifications</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;width:38%;">Material</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">Single-wall corrugated cardboard</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Colour</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">Brown kraft</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Size options</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">{{LIST SIZE / DIMENSION OPTIONS HERE}}</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Pack quantity</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">{{e.g. Sold individually / Pack of 10}}</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Recyclable</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">Yes — 100% recyclable</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 14px;font-size:13px;color:#666666;border-top:1px solid #eceee8;">Custom sizing</td>
+          <td style="padding:9px 14px;font-size:13px;color:#222222;border-top:1px solid #eceee8;">Available on request — contact us</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ TRUST / USP STRIP ============ -->
+  <!-- Generally does NOT need editing between listings — these are store-wide, not product-specific. -->
+  <tr>
+    <td style="padding:22px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">🚚<br />Fast UK<br />Dispatch</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">🌿<br />Eco-Friendly &amp;<br />Recyclable</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">📦<br />Bulk Discounts<br />Available</td>
+          <td width="25%" align="center" style="padding:10px 6px;font-size:12px;color:#3f6e22;font-weight:bold;line-height:1.4;">✂️<br />Custom Sizes<br />on Request</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ DELIVERY & RETURNS ============ -->
+  <!-- Store-wide — check the wording against your actual eBay postage/returns settings before reuse. -->
+  <tr>
+    <td style="padding:18px 28px 8px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e2e6dc;border-collapse:collapse;">
+        <tr>
+          <td style="padding:14px 16px;font-size:13px;line-height:1.7;color:#333333;">
+            <strong style="color:#222222;">Delivery:</strong> Dispatched quickly from our UK warehouse — see the postage options on this listing for delivery times.<br />
+            <strong style="color:#222222;">Returns:</strong> Not the right fit? See our returns policy on this listing, or message us before ordering if you need help choosing a size.<br />
+            <strong style="color:#222222;">Need a bespoke size or a bulk quantity?</strong> Call us on 0121 769 1411 or send us a message through eBay and we'll help you out.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ MORE FROM YARDLEY ============ -->
+  <!-- Do NOT add external website links here — eBay's policy blocks links off eBay in listing descriptions. -->
+  <!-- Just name the categories in plain text; buyers can search "Yardley Packaging" on eBay to find them. -->
+  <tr>
+    <td style="padding:18px 28px 24px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f7f8f5;border:1px solid #e2e6dc;" bgcolor="#f7f8f5">
+        <tr>
+          <td style="padding:16px 18px;">
+            <div style="font-size:14px;font-weight:bold;color:#222222;margin-bottom:8px;">Complete your packaging order</div>
+            <div style="font-size:13px;line-height:1.7;color:#555555;">
+              We also stock: Bubble Wrap &amp; Envelopes · Kraft Paper Bags · Mailing Bags · Packaging Tapes · Pallet Wrap &amp; Stretch Film · Void &amp; Loose Fill · Corner &amp; Edge Protectors · Strapping.<br />
+              Search <strong>"Yardley Packaging"</strong> on eBay or check our other listings to see the full range.
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- ============ FOOTER ============ -->
+  <tr>
+    <td style="background-color:#4f8f2a;padding:16px 24px;text-align:center;" bgcolor="#4f8f2a">
+      <div style="font-size:13px;color:#ffffff;">Yardley Packaging &nbsp;|&nbsp; 0121 769 1411 &nbsp;|&nbsp; VAT invoices available on request</div>
+    </td>
+  </tr>
+
+</table>
