@@ -11,19 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          ink: "#12181f", ink2: "#1e2a38", forest: "#1e6b45", forestDark: "#123d28",
-          forestLight: "#2f8f5c", gold: "#c9a15a", paper: "#ffffff", muted: "#5b6572", border: "#e2ddd0",
-        },
-        fontFamily: { heading: ["Poppins", "sans-serif"], body: ["Open Sans", "sans-serif"] },
-      },
-    },
-  };
-</script>
+<script src="assets/js/tailwind-config.js"></script>
 <link rel="stylesheet" href="assets/css/style.css?v=12" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
@@ -58,7 +46,7 @@
     </div>
 
     <button id="menu-btn" aria-label="Open menu" class="lg:hidden cursor-pointer p-2 -mr-2">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#12181f" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#060a16" stroke-width="1.6" stroke-linecap="round"/></svg>
     </button>
   </nav>
 </header>
@@ -67,7 +55,7 @@
 <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-[78%] max-w-xs bg-white z-50 shadow-2xl px-8 py-8 flex flex-col">
   <div class="flex justify-end">
     <button id="menu-close" aria-label="Close menu" class="cursor-pointer p-2">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#12181f" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#060a16" stroke-width="1.6" stroke-linecap="round"/></svg>
     </button>
   </div>
   <div class="flex flex-col gap-6 mt-8 text-lg font-heading font-medium">
@@ -265,6 +253,163 @@
                       <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Email &amp; SMS lifecycle campaigns</li>
                       <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Loyalty &amp; VIP programs</li>
                       <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Post-purchase automation</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-20 lg:pb-28 px-4 lg:px-8" data-reveal-group>
+    <div class="max-w-[1600px] mx-auto">
+      <div class="reveal panel p-8 sm:p-12 lg:p-16">
+        <div class="panel-content">
+          <div class="flex items-end justify-between mb-10">
+            <h2 class="display text-4xl sm:text-5xl text-white">AI-powered services <span class="text-forestLight text-sm font-semibold uppercase tracking-widest align-middle ml-2">New</span></h2>
+            <span class="hidden sm:block font-heading text-3xl text-white/30">(05)</span>
+          </div>
+
+          <div data-accordion class="border-t border-border">
+
+            <div class="accordion-item open">
+              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
+                <span class="flex items-center gap-5">
+                  <span class="num-badge">1</span>
+                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">AI Customer Support Implementation</span>
+                </span>
+                <span class="accordion-icon"></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="pb-9 pl-11">
+                  <div class="flex flex-wrap gap-2 mb-5">
+                    <span class="tag-pill">WhatsApp</span>
+                    <span class="tag-pill">Live Chat</span>
+                    <span class="tag-pill">Email</span>
+                  </div>
+                  <div class="grid md:grid-cols-2 gap-8">
+                    <p class="text-white/60 leading-relaxed">A trained AI support agent across WhatsApp, live chat and email that resolves order, shipping and product questions instantly, and hands off to your team only when it needs to.</p>
+                    <ul class="space-y-3 text-sm text-white/70">
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Trained AI agent across WhatsApp, chat &amp; email</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Order, shipping &amp; product Q&amp;A handling</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Human handoff for complex requests</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Live analytics on resolved vs escalated</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
+                <span class="flex items-center gap-5">
+                  <span class="num-badge">2</span>
+                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">AI-Powered On-Site Search</span>
+                </span>
+                <span class="accordion-icon"></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="pb-9 pl-11">
+                  <div class="flex flex-wrap gap-2 mb-5">
+                    <span class="tag-pill">Semantic Search</span>
+                    <span class="tag-pill">Arabic &amp; English</span>
+                    <span class="tag-pill">Typo-tolerant</span>
+                  </div>
+                  <div class="grid md:grid-cols-2 gap-8">
+                    <p class="text-white/60 leading-relaxed">Search that understands intent, not just keywords — matching Arabic and English queries, typos and product attributes to the right result, so browsers convert.</p>
+                    <ul class="space-y-3 text-sm text-white/70">
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Intent-based search across your catalogue</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Bilingual Arabic/English query matching</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Typo &amp; synonym tolerant results</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Merchandising rules for featured products</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
+                <span class="flex items-center gap-5">
+                  <span class="num-badge">3</span>
+                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Product Catalog &amp; SEO Optimization</span>
+                </span>
+                <span class="accordion-icon"></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="pb-9 pl-11">
+                  <div class="flex flex-wrap gap-2 mb-5">
+                    <span class="tag-pill">Bulk Audit</span>
+                    <span class="tag-pill">SEO Metadata</span>
+                    <span class="tag-pill">Bilingual</span>
+                  </div>
+                  <div class="grid md:grid-cols-2 gap-8">
+                    <p class="text-white/60 leading-relaxed">AI-audited titles, descriptions and metadata across your full catalogue, rewritten for search and localized for Saudi and GCC shoppers.</p>
+                    <ul class="space-y-3 text-sm text-white/70">
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Full-catalogue title &amp; description audit</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> On-page SEO metadata rewrite</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Arabic/English localization</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Ongoing optimization as catalogue grows</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
+                <span class="flex items-center gap-5">
+                  <span class="num-badge">4</span>
+                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Predictive Retention Marketing</span>
+                </span>
+                <span class="accordion-icon"></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="pb-9 pl-11">
+                  <div class="flex flex-wrap gap-2 mb-5">
+                    <span class="tag-pill">Churn Prediction</span>
+                    <span class="tag-pill">WhatsApp &amp; Email</span>
+                    <span class="tag-pill">Lifecycle</span>
+                  </div>
+                  <div class="grid md:grid-cols-2 gap-8">
+                    <p class="text-white/60 leading-relaxed">Models that flag which customers are about to churn — before they do — so retention offers land on WhatsApp and email at the right moment.</p>
+                    <ul class="space-y-3 text-sm text-white/70">
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Churn-risk scoring per customer</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Automated win-back campaigns</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> WhatsApp &amp; email lifecycle triggers</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Reporting on retained revenue</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
+                <span class="flex items-center gap-5">
+                  <span class="num-badge">5</span>
+                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Automated Competitor Repricing</span>
+                </span>
+                <span class="accordion-icon"></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="pb-9 pl-11">
+                  <div class="flex flex-wrap gap-2 mb-5">
+                    <span class="tag-pill">Price Monitoring</span>
+                    <span class="tag-pill">Marketplace Rules</span>
+                    <span class="tag-pill">Margin Protection</span>
+                  </div>
+                  <div class="grid md:grid-cols-2 gap-8">
+                    <p class="text-white/60 leading-relaxed">Continuous monitoring of competitor and marketplace pricing, with automated rules that keep your margins protected while staying competitive.</p>
+                    <ul class="space-y-3 text-sm text-white/70">
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Continuous competitor &amp; marketplace price tracking</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Automated repricing rules</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Margin floor &amp; ceiling protection</li>
+                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Alerts on major market price shifts</li>
                     </ul>
                   </div>
                 </div>
