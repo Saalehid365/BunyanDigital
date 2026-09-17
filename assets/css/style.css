@@ -1,14 +1,14 @@
 :root {
-  --ink: #12181f;
-  --ink-2: #1e2a38;
-  --forest: #1e6b45;
-  --forest-dark: #123d28;
-  --forest-light: #2f8f5c;
-  --gold: #c9a15a;
+  --ink: #060a16;
+  --ink-2: #0d1730;
+  --forest: #3b6fed;
+  --forest-dark: #1c3f8c;
+  --forest-light: #6f94ff;
+  --gold: #6f94ff;
   --paper: #ffffff;
-  --panel: #12181f;
-  --muted: #5b6572;
-  --border: #e2ddd0;
+  --panel: #060a16;
+  --muted: #6b7385;
+  --border: #e4e2da;
 }
 
 html {
@@ -225,16 +225,16 @@ body.hero-dark #site-header:not(.header-solid) .logo-light {
   background: #fff;
 }
 
-/* Iridescent gradient "smoke" hero backdrop, in-brand green/gold/navy */
+/* Iridescent gradient "smoke" hero backdrop, in-brand navy/blue */
 .smoke {
   position: absolute;
   inset: -20%;
   z-index: 0;
   background:
-    radial-gradient(45% 55% at 25% 30%, rgba(47, 143, 92, 0.55), transparent 60%),
-    radial-gradient(40% 50% at 75% 25%, rgba(201, 161, 90, 0.35), transparent 65%),
-    radial-gradient(55% 60% at 60% 75%, rgba(30, 107, 69, 0.5), transparent 60%),
-    radial-gradient(35% 45% at 15% 80%, rgba(18, 61, 40, 0.6), transparent 60%);
+    radial-gradient(45% 55% at 25% 30%, rgba(111, 148, 255, 0.55), transparent 60%),
+    radial-gradient(40% 50% at 75% 25%, rgba(28, 63, 140, 0.35), transparent 65%),
+    radial-gradient(55% 60% at 60% 75%, rgba(59, 111, 237, 0.5), transparent 60%),
+    radial-gradient(35% 45% at 15% 80%, rgba(28, 63, 140, 0.6), transparent 60%);
   filter: blur(60px) saturate(130%);
   animation: smokeDrift 18s ease-in-out infinite alternate;
 }
@@ -503,7 +503,7 @@ body.hero-dark #site-header:not(.header-solid) .logo-light {
   width: 1100px;
   height: 1100px;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(47, 143, 92, 0.5) 0%, rgba(30, 107, 69, 0.22) 35%, transparent 68%);
+  background: radial-gradient(circle, rgba(111, 148, 255, 0.5) 0%, rgba(59, 111, 237, 0.22) 35%, transparent 68%);
   filter: blur(10px);
   pointer-events: none;
 }
