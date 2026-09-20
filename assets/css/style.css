@@ -166,7 +166,8 @@ h1, h2, h3, h4, .font-heading {
    light header until it scrolls solid, otherwise dark nav text disappears
    against the dark hero behind it. */
 body.hero-dark #site-header:not(.header-solid) .nav-link,
-body.hero-dark #site-header:not(.header-solid) .header-logo-text {
+body.hero-dark #site-header:not(.header-solid) .header-logo-text,
+body.hero-dark #site-header:not(.header-solid) .header-login-link {
   color: #fff;
 }
 body.hero-dark #site-header:not(.header-solid) .nav-link::after {
