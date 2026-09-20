@@ -1,0 +1,6 @@
+# Reverse-proxies the CRM app (a separate Netlify site) under /crm on this domain,
+# so it appears as part of www.bunyandigital.co without needing its own subdomain or
+# any DNS changes. Status 200 makes this a proxy/rewrite (fetch-and-serve) rather than
+# a redirect — the browser's address bar stays on /crm, it never sees the .netlify.app URL.
+/crm    https://bunyandigitalcrm.netlify.app/crm    200
+/crm/*  https://bunyandigitalcrm.netlify.app/crm/:splat  200
