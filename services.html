@@ -2,513 +2,222 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Services — Bunyan Digital</title>
 <meta name="description" content="Ecommerce services from Bunyan Digital: store design, performance marketing, automation flows, CRO, marketplace management and retention CRM." />
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="assets/js/tailwind-config.js"></script>
-<link rel="stylesheet" href="assets/css/style.css?v=12" />
-<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
+<meta name="theme-color" content="#05081a" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Services — Bunyan Digital" />
+<meta property="og:description" content="Ecommerce services from Bunyan Digital: store design, performance marketing, automation flows, CRO, marketplace management and retention CRM." />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;500&family=Reem+Kufi:wght@400..700&display=swap" rel="stylesheet" />
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('reduced');}
+setTimeout(function(){if(!window.__siteReady){d.classList.remove('js');}},3500);})();
+</script>
+<link rel="stylesheet" href="assets/css/site.css" />
 </head>
-<body class="font-body bg-paper text-ink antialiased">
-
-<div id="preloader" aria-hidden="true">
-  <img src="assets/img/logo-mark.png" alt="" />
-</div>
-
-<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-ink focus:text-white focus:px-4 focus:py-2 focus:rounded-md">Skip to content</a>
-
-<header id="site-header" class="fixed top-0 inset-x-0 z-40 transition-colors duration-300">
-  <nav class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
-    <a href="index.html" class="flex items-center gap-3 group" aria-label="Bunyan Digital home">
-      <img src="assets/img/logo-mark.png" alt="Bunyan Digital" class="h-12 w-auto shrink-0" />
-      <span class="font-heading font-semibold text-base tracking-tight text-ink">Bunyan Digital</span>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Bunyan Digital home">
+      <img src="assets/img/logo-mark-light.png" alt="" width="46" height="46" />
+      <span>Bunyan Digital</span>
     </a>
-
-    <div class="hidden lg:flex items-center gap-9">
-      <a href="index.html" class="nav-link text-sm font-medium text-ink">Home</a>
-      <a href="services.html" class="nav-link active text-sm font-medium text-ink">Services</a>
-      <a href="portfolio.html" class="nav-link text-sm font-medium text-ink">Case Studies</a>
-      <a href="about.html" class="nav-link text-sm font-medium text-ink">About</a>
-      <a href="contact.html" class="nav-link text-sm font-medium text-ink">Contact</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="services.html" aria-current="page">Services</a>
+      <a href="portfolio.html">Case Studies</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="login-link" href="https://bunyandigital.co/crm"><iconify-icon icon="solar:user-circle-linear" aria-hidden="true"></iconify-icon>Client login</a>
+      <a class="btn" href="contact.html">Start a project <iconify-icon icon="solar:arrow-right-up-linear" aria-hidden="true"></iconify-icon></a>
     </div>
-
-    <div class="hidden lg:flex items-center gap-4">
-      <a href="https://bunyandigital.co/crm" aria-label="Client Login" title="Client Login" class="header-login-link text-ink hover:text-forest transition-colors cursor-pointer">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </a>
-      <a href="contact.html" class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold cursor-pointer">
-        Start a Project
-      </a>
-    </div>
-
-    <button id="menu-btn" aria-label="Open menu" class="lg:hidden cursor-pointer p-2 -mr-2">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#060a16" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-  </nav>
+    <button id="menu-btn" class="menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false"><span>Menu</span><iconify-icon icon="solar:hamburger-menu-linear" aria-hidden="true"></iconify-icon></button>
+  </div>
 </header>
-
-<div id="menu-overlay" class="hidden fixed inset-0 bg-black/40 z-40"></div>
-<div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-[78%] max-w-xs bg-white z-50 shadow-2xl px-8 py-8 flex flex-col">
-  <div class="flex justify-end">
-    <button id="menu-close" aria-label="Close menu" class="cursor-pointer p-2">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#060a16" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mobile-menu-top">
+    <a class="brand" href="index.html"><img src="assets/img/logo-mark-light.png" alt="" width="46" height="46" /><span>Bunyan Digital</span></a>
+    <button class="menu-btn" type="button" data-menu-close><span>Close</span><iconify-icon icon="solar:close-circle-linear" aria-hidden="true"></iconify-icon></button>
   </div>
-  <div class="flex flex-col gap-6 mt-8 text-lg font-heading font-medium">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="portfolio.html">Case Studies</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://bunyandigital.co/crm" class="flex items-center gap-2">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      Login
-    </a>
-  </div>
-  <a href="contact.html" class="btn-primary mt-auto inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold cursor-pointer">Start a Project</a>
+  <nav aria-label="Mobile">
+    <a href="index.html">Home<span>01</span></a>
+    <a href="services.html" aria-current="page">Services<span>02</span></a>
+    <a href="portfolio.html">Case Studies<span>03</span></a>
+    <a href="about.html">About<span>04</span></a>
+    <a href="contact.html">Contact<span>05</span></a>
+    <a href="https://bunyandigital.co/crm">Client login<span>↗</span></a>
+  </nav>
+  <a class="btn" href="contact.html">Start a project <iconify-icon icon="solar:arrow-right-up-linear" aria-hidden="true"></iconify-icon></a>
 </div>
 
 <main id="main">
-
-  <section class="pt-32 lg:pt-40 pb-10 px-4 lg:px-8">
-    <div class="max-w-[1600px] mx-auto">
-      <p data-hero-item class="text-xs font-semibold tracking-widest uppercase text-muted mb-6"><span class="asterisk mr-1">✳</span> Services</p>
-      <h1 data-hero-item class="display text-5xl sm:text-6xl lg:text-7xl text-ink max-w-4xl">One partner, the whole ecommerce stack.</h1>
-      <p data-hero-item class="mt-6 text-lg text-muted max-w-xl leading-relaxed">From first storefront to marketplace-wide expansion — every service is built to move one number: revenue.</p>
+  <section class="hero hero--page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:2">
+      <p class="eyebrow" data-hero-item>Services</p>
+      <h1 class="display h1" data-split>One partner, the whole ecommerce <span class="acc">stack.</span></h1>
+      <p class="lede" data-hero-item>From first storefront to marketplace-wide expansion — every service is built to move one number: revenue.</p>
+      <nav class="jump" data-hero-item aria-label="On this page"><a href="#core">Core services · 06</a><a href="#ai">AI-powered · 05</a></nav>
     </div>
   </section>
-
-  <section class="pb-20 lg:pb-28 px-4 lg:px-8" data-reveal-group>
-    <div class="max-w-[1600px] mx-auto">
-      <div class="reveal panel p-8 sm:p-12 lg:p-16">
-        <div class="panel-content">
-          <div class="flex items-end justify-between mb-10">
-            <h2 class="display text-4xl sm:text-5xl text-white">All services</h2>
-            <span class="hidden sm:block font-heading text-3xl text-white/30">(06)</span>
-          </div>
-
-          <div data-accordion class="border-t border-border">
-
-            <div class="accordion-item open">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">1</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Store Design &amp; Build</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">Shopify</span>
-                    <span class="tag-pill">Salla</span>
-                    <span class="tag-pill">Mada &amp; STC Pay</span>
-                    <span class="tag-pill">Bilingual</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">Shopify, Salla and Zid storefronts designed around how Saudi shoppers actually browse and check out — fast-loading, mobile-first, and built to convert from day one.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Custom theme design &amp; build</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Mada &amp; STC Pay payment integration</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Arabic/English bilingual setup</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Core Web Vitals performance tuning</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">2</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Performance Marketing</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">Meta</span>
-                    <span class="tag-pill">Google</span>
-                    <span class="tag-pill">TikTok</span>
-                    <span class="tag-pill">Snapchat</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">Paid media across Meta, Google, Snapchat and TikTok — managed toward ROAS and payback period, with weekly reporting your finance team will actually trust.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Meta &amp; TikTok ads management</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Google Shopping &amp; Search</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Creative testing at scale</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Weekly ROAS reporting</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">3</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Automation Setups &amp; Flows</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">Zapier</span>
-                    <span class="tag-pill">Klaviyo Flows</span>
-                    <span class="tag-pill">Inventory Sync</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">Automated workflows that save your team hours every week — from abandoned cart recovery to inventory syncing and order processing, all running without manual work.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Abandoned cart &amp; order flows</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Inventory &amp; stock sync automation</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Zapier / Make integrations</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Custom workflow builds</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">4</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">CRO &amp; Analytics</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">Funnel Audits</span>
-                    <span class="tag-pill">A/B Testing</span>
-                    <span class="tag-pill">GA4</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">Funnel audits, structured A/B testing and clear dashboards — so every improvement is measured, not assumed.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Checkout &amp; funnel audits</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> A/B &amp; multivariate testing</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> GA4 &amp; server-side tracking setup</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Custom revenue dashboards</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">5</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Marketplace Management</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">Amazon.sa</span>
-                    <span class="tag-pill">Noon</span>
-                    <span class="tag-pill">Shopwired</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">Amazon.sa, Noon and Salla marketplace storefronts set up, optimized, and monitored so you capture demand everywhere shoppers already are.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Amazon.sa &amp; Noon storefronts</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Listing SEO &amp; catalogue health</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Inventory &amp; pricing monitoring</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Marketplace ad management</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">6</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">CRM &amp; Retention</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">WhatsApp</span>
-                    <span class="tag-pill">Email</span>
-                    <span class="tag-pill">SMS</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">WhatsApp, SMS and email lifecycle flows built around how Saudi customers actually communicate — to turn one-time buyers into repeat revenue.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> WhatsApp commerce flows</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Email &amp; SMS lifecycle campaigns</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Loyalty &amp; VIP programs</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Post-purchase automation</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
+  <section class="section on-paper">
+    <div class="container">
+      <div class="svc-group" id="core">
+        <div class="svc-group-head"><h2 class="display h2" data-split>All services</h2><span class="mono muted">06</span></div>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">01</span>
+          <h3 class="display h3">Store Design &amp; Build</h3>
+          <p>Bilingual Shopify, Salla and Zid storefronts designed around how Saudi shoppers actually browse and check out — fast-loading, mobile-first, and built to convert from day one.</p>
+          <div class="tags"><span class="tag">Shopify</span><span class="tag">Salla</span><span class="tag">Mada & STC Pay</span><span class="tag">Bilingual</span></div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="pb-20 lg:pb-28 px-4 lg:px-8" data-reveal-group>
-    <div class="max-w-[1600px] mx-auto">
-      <div class="reveal panel p-8 sm:p-12 lg:p-16">
-        <div class="panel-content">
-          <div class="flex items-end justify-between mb-10">
-            <h2 class="display text-4xl sm:text-5xl text-white">AI-powered services <span class="text-forestLight text-sm font-semibold uppercase tracking-widest align-middle ml-2">New</span></h2>
-            <span class="hidden sm:block font-heading text-3xl text-white/30">(05)</span>
-          </div>
-
-          <div data-accordion class="border-t border-border">
-
-            <div class="accordion-item open">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">1</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">AI Customer Support Implementation</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">WhatsApp</span>
-                    <span class="tag-pill">Live Chat</span>
-                    <span class="tag-pill">Email</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">A trained AI support agent across WhatsApp, live chat and email that resolves order, shipping and product questions instantly, and hands off to your team only when it needs to.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Trained AI agent across WhatsApp, chat &amp; email</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Order, shipping &amp; product Q&amp;A handling</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Human handoff for complex requests</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Live analytics on resolved vs escalated</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">2</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">AI-Powered On-Site Search</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">Semantic Search</span>
-                    <span class="tag-pill">Arabic &amp; English</span>
-                    <span class="tag-pill">Typo-tolerant</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">Search that understands intent, not just keywords — matching Arabic and English queries, typos and product attributes to the right result, so browsers convert.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Intent-based search across your catalogue</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Bilingual Arabic/English query matching</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Typo &amp; synonym tolerant results</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Merchandising rules for featured products</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">3</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Product Catalog &amp; SEO Optimization</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">Bulk Audit</span>
-                    <span class="tag-pill">SEO Metadata</span>
-                    <span class="tag-pill">Bilingual</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">AI-audited titles, descriptions and metadata across your full catalogue, rewritten for search and localized for Saudi and GCC shoppers.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Full-catalogue title &amp; description audit</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> On-page SEO metadata rewrite</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Arabic/English localization</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Ongoing optimization as catalogue grows</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">4</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Predictive Retention Marketing</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">Churn Prediction</span>
-                    <span class="tag-pill">WhatsApp &amp; Email</span>
-                    <span class="tag-pill">Lifecycle</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">Models that flag which customers are about to churn — before they do — so retention offers land on WhatsApp and email at the right moment.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Churn-risk scoring per customer</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Automated win-back campaigns</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> WhatsApp &amp; email lifecycle triggers</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Reporting on retained revenue</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <button class="accordion-trigger w-full flex items-center justify-between gap-6 py-8 text-left">
-                <span class="flex items-center gap-5">
-                  <span class="num-badge">5</span>
-                  <span class="font-heading font-semibold text-xl sm:text-2xl text-white">Automated Competitor Repricing</span>
-                </span>
-                <span class="accordion-icon"></span>
-              </button>
-              <div class="accordion-panel">
-                <div class="pb-9 pl-11">
-                  <div class="flex flex-wrap gap-2 mb-5">
-                    <span class="tag-pill">Price Monitoring</span>
-                    <span class="tag-pill">Marketplace Rules</span>
-                    <span class="tag-pill">Margin Protection</span>
-                  </div>
-                  <div class="grid md:grid-cols-2 gap-8">
-                    <p class="text-white/60 leading-relaxed">Continuous monitoring of competitor and marketplace pricing, with automated rules that keep your margins protected while staying competitive.</p>
-                    <ul class="space-y-3 text-sm text-white/70">
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Continuous competitor &amp; marketplace price tracking</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Automated repricing rules</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Margin floor &amp; ceiling protection</li>
-                      <li class="flex items-start gap-2"><span class="text-forestLight mt-0.5">＋</span> Alerts on major market price shifts</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
+        <ul><li>Custom theme design &amp; build</li><li>Mada &amp; STC Pay payment integration</li><li>Arabic/English bilingual setup</li><li>Core Web Vitals performance tuning</li></ul>
+      </article>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">02</span>
+          <h3 class="display h3">Performance Marketing</h3>
+          <p>Paid media across Meta, Google, Snapchat and TikTok — managed toward ROAS and payback period, with weekly reporting your finance team will actually trust.</p>
+          <div class="tags"><span class="tag">Meta</span><span class="tag">Google</span><span class="tag">TikTok</span><span class="tag">Snapchat</span></div>
         </div>
+        <ul><li>Meta &amp; TikTok ads management</li><li>Google Shopping &amp; Search</li><li>Creative testing at scale</li><li>Weekly ROAS reporting</li></ul>
+      </article>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">03</span>
+          <h3 class="display h3">Automation Setups &amp; Flows</h3>
+          <p>Automated workflows that save your team hours every week — from abandoned cart recovery to inventory syncing and order processing, all running without manual work.</p>
+          <div class="tags"><span class="tag">Zapier</span><span class="tag">Klaviyo Flows</span><span class="tag">Inventory Sync</span></div>
+        </div>
+        <ul><li>Abandoned cart &amp; order flows</li><li>Inventory &amp; stock sync automation</li><li>Zapier / Make integrations</li><li>Custom workflow builds</li></ul>
+      </article>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">04</span>
+          <h3 class="display h3">CRO &amp; Analytics</h3>
+          <p>Funnel audits, structured A/B testing and clear dashboards — so every improvement is measured, not assumed.</p>
+          <div class="tags"><span class="tag">Funnel Audits</span><span class="tag">A/B Testing</span><span class="tag">GA4</span></div>
+        </div>
+        <ul><li>Checkout &amp; funnel audits</li><li>A/B &amp; multivariate testing</li><li>GA4 &amp; server-side tracking setup</li><li>Custom revenue dashboards</li></ul>
+      </article>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">05</span>
+          <h3 class="display h3">Marketplace Management</h3>
+          <p>Amazon.sa, Noon and Salla marketplace storefronts set up, optimized, and monitored so you capture demand everywhere shoppers already are.</p>
+          <div class="tags"><span class="tag">Amazon.sa</span><span class="tag">Noon</span><span class="tag">Shopwired</span></div>
+        </div>
+        <ul><li>Amazon.sa &amp; Noon storefronts</li><li>Listing SEO &amp; catalogue health</li><li>Inventory &amp; pricing monitoring</li><li>Marketplace ad management</li></ul>
+      </article>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">06</span>
+          <h3 class="display h3">CRM &amp; Retention</h3>
+          <p>WhatsApp, SMS and email lifecycle flows built around how Saudi customers actually communicate — to turn one-time buyers into repeat revenue.</p>
+          <div class="tags"><span class="tag">WhatsApp</span><span class="tag">Email</span><span class="tag">SMS</span></div>
+        </div>
+        <ul><li>WhatsApp commerce flows</li><li>Email &amp; SMS lifecycle campaigns</li><li>Loyalty &amp; VIP programs</li><li>Post-purchase automation</li></ul>
+      </article>
+      </div>
+      <div class="svc-group" id="ai">
+        <div class="svc-group-head"><h2 class="display h2" data-split>AI-powered services</h2><span class="badge-new">New</span><span class="mono muted">05</span></div>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">01</span>
+          <h3 class="display h3">AI Customer Support Implementation</h3>
+          <p>A trained AI support agent across WhatsApp, live chat and email that resolves order, shipping and product questions instantly, and hands off to your team only when it needs to.</p>
+          <div class="tags"><span class="tag">WhatsApp</span><span class="tag">Live Chat</span><span class="tag">Email</span></div>
+        </div>
+        <ul><li>Trained AI agent across WhatsApp, chat &amp; email</li><li>Order, shipping &amp; product Q&amp;A handling</li><li>Human handoff for complex requests</li><li>Live analytics on resolved vs escalated</li></ul>
+      </article>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">02</span>
+          <h3 class="display h3">AI-Powered On-Site Search</h3>
+          <p>Search that understands intent, not just keywords — matching Arabic and English queries, typos and product attributes to the right result, so browsers convert.</p>
+          <div class="tags"><span class="tag">Semantic Search</span><span class="tag">Arabic & English</span><span class="tag">Typo-tolerant</span></div>
+        </div>
+        <ul><li>Intent-based search across your catalogue</li><li>Bilingual Arabic/English query matching</li><li>Typo &amp; synonym tolerant results</li><li>Merchandising rules for featured products</li></ul>
+      </article>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">03</span>
+          <h3 class="display h3">Product Catalog &amp; SEO Optimization</h3>
+          <p>AI-audited titles, descriptions and metadata across your full catalogue, rewritten for search and localized for Saudi and GCC shoppers.</p>
+          <div class="tags"><span class="tag">Bulk Audit</span><span class="tag">SEO Metadata</span><span class="tag">Bilingual</span></div>
+        </div>
+        <ul><li>Full-catalogue title &amp; description audit</li><li>On-page SEO metadata rewrite</li><li>Arabic/English localization</li><li>Ongoing optimization as catalogue grows</li></ul>
+      </article>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">04</span>
+          <h3 class="display h3">Predictive Retention Marketing</h3>
+          <p>Models that flag which customers are about to churn — before they do — so retention offers land on WhatsApp and email at the right moment.</p>
+          <div class="tags"><span class="tag">Churn Prediction</span><span class="tag">WhatsApp & Email</span><span class="tag">Lifecycle</span></div>
+        </div>
+        <ul><li>Churn-risk scoring per customer</li><li>Automated win-back campaigns</li><li>WhatsApp &amp; email lifecycle triggers</li><li>Reporting on retained revenue</li></ul>
+      </article>
+      <article class="svc" data-reveal>
+        <div>
+          <span class="svc-n">05</span>
+          <h3 class="display h3">Automated Competitor Repricing</h3>
+          <p>Continuous monitoring of competitor and marketplace pricing, with automated rules that keep your margins protected while staying competitive.</p>
+          <div class="tags"><span class="tag">Price Monitoring</span><span class="tag">Marketplace Rules</span><span class="tag">Margin Protection</span></div>
+        </div>
+        <ul><li>Continuous competitor &amp; marketplace price tracking</li><li>Automated repricing rules</li><li>Margin floor &amp; ceiling protection</li><li>Alerts on major market price shifts</li></ul>
+      </article>
+      </div>
+      <div class="svc-group" style="margin-top:4rem" data-reveal>
+        <p class="eyebrow">Not sure which service you need?</p>
+        <p class="lede muted" style="margin:1.2rem 0 1.8rem">Tell us about your store and goals — we'll recommend a plan in one call, no obligation.</p>
+        <a class="btn" href="contact.html">Book a free call <iconify-icon icon="solar:arrow-right-up-linear" aria-hidden="true"></iconify-icon></a>
       </div>
     </div>
   </section>
-
-  <section class="pb-20 lg:pb-28 px-4 lg:px-8">
-    <div data-reveal-group class="max-w-[1600px] mx-auto text-center">
-      <p class="reveal asterisk text-2xl mb-6">✳</p>
-      <h2 class="reveal display text-4xl sm:text-5xl text-ink max-w-2xl mx-auto">Not sure which service you need?</h2>
-      <p class="reveal mt-5 text-muted max-w-md mx-auto">Tell us about your store and goals — we'll recommend a plan in one call, no obligation.</p>
-      <div class="reveal mt-9">
-        <a href="contact.html" class="cursor-pointer inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold bg-ink text-white hover:bg-forest transition-colors">
-          Book a Free Call
-        </a>
-      </div>
-    </div>
-  </section>
-
 </main>
-
-<footer class="pt-16 pb-28 px-4 lg:px-8">
-  <div class="max-w-[1600px] mx-auto border-t border-border pt-14">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
       <div>
-        <div class="flex items-center gap-3 mb-4">
-          <img src="assets/img/logo-mark.png" alt="Bunyan Digital" class="h-10 w-auto" />
-          <span class="font-heading font-semibold text-base">Bunyan Digital</span>
-        </div>
-        <p class="text-sm text-muted max-w-sm leading-relaxed">Ecommerce strategy, storefront design and performance marketing for brands built in — and for — Saudi Arabia.</p>
+        <a class="brand" href="index.html" aria-label="Bunyan Digital home"><img src="assets/img/logo-mark-light.png" alt="" width="54" height="54" /><span>Bunyan Digital</span></a>
+        <p>Ecommerce strategy, storefront design and performance marketing for brands built in — and for — Saudi Arabia.</p>
       </div>
       <div>
-        <h4 class="font-heading font-semibold text-sm mb-4">Useful Links</h4>
-        <ul class="space-y-3 text-sm text-muted">
-          <li><a href="about.html" class="hover:text-ink transition-colors">About</a></li>
-          <li><a href="services.html" class="hover:text-ink transition-colors">Services</a></li>
-          <li><a href="portfolio.html" class="hover:text-ink transition-colors">Case Studies</a></li>
-          <li><a href="contact.html" class="hover:text-ink transition-colors">Contact</a></li>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="portfolio.html">Case Studies</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://bunyandigital.co/crm">Client login</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-heading font-semibold text-sm mb-4">Get In Touch</h4>
-        <ul class="space-y-3 text-sm text-muted">
+        <h4>Get in touch</h4>
+        <ul>
           <li>United Kingdom &amp; Madinah, Saudi Arabia</li>
-          <li>
-            <a href="mailto:info@bunyandigital.co" class="inline-flex items-center gap-2 hover:text-ink transition-colors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0"><path d="M3 6l9 6 9-6M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              info@bunyandigital.co
-            </a>
-          </li>
-          <li>
-            <a href="https://wa.me/447347559113" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-ink transition-colors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="shrink-0"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.55L3 20l1.05-5.4A8.5 8.5 0 1 1 21 11.5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              WhatsApp: +44 7347 559113
-            </a>
-          </li>
+          <li><a href="mailto:info@bunyandigital.co">info@bunyandigital.co</a></li>
+          <li><a href="https://wa.me/447347559113" target="_blank" rel="noopener">WhatsApp +44 7347 559113</a></li>
         </ul>
       </div>
-      <div>
-        <h4 class="font-heading font-semibold text-sm mb-4">Stay In The Loop</h4>
-        <p class="text-sm text-muted leading-relaxed mb-4">Occasional notes on ecommerce growth in Saudi Arabia — no spam.</p>
-        <form data-newsletter-form class="relative">
-          <label for="newsletter-email" class="sr-only">Email address</label>
-          <input id="newsletter-email" type="email" required placeholder="Your email address" class="w-full rounded-full border border-border bg-white pl-4 pr-[6.5rem] py-3 text-sm text-ink placeholder-muted focus:outline-none focus:border-forest transition-colors" />
-          <button type="submit" class="absolute right-1 top-1 bottom-1 rounded-full px-4 text-xs sm:text-sm font-semibold bg-ink text-white hover:bg-forest transition-colors cursor-pointer">Subscribe</button>
-        </form>
-        <p data-newsletter-note class="text-xs text-muted mt-3" aria-live="polite"></p>
-      </div>
     </div>
-    <div class="mt-14 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
-      <p>© <span id="year"></span> Bunyan Digital. All rights reserved.</p>
-      <p>Built for ecommerce brands across the Kingdom.</p>
-    </div>
+    <div class="footer-bottom"><span>© <span data-year>2026</span> Bunyan Digital. All rights reserved.</span><span lang="ar" dir="rtl">بنيان — to build</span></div>
   </div>
 </footer>
-
-<a href="https://wa.me/447347559113" target="_blank" rel="noopener" class="floating-contact" aria-label="Contact Bunyan Digital on WhatsApp">
-  <img src="assets/img/logo-mark.png" alt="" aria-hidden="true" />
-  <span class="text-sm text-white leading-tight">
-    <span class="block font-semibold">Contact us</span>
-    <span class="block text-white/50 text-xs">Bunyan Digital</span>
-  </span>
-</a>
-
-<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-<script src="assets/js/main.js?v=11"></script>
+<a class="wa-pill" href="https://wa.me/447347559113" target="_blank" rel="noopener" aria-label="Chat with Bunyan Digital on WhatsApp"><iconify-icon icon="solar:chat-round-dots-linear" aria-hidden="true"></iconify-icon>WhatsApp</a>
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="assets/js/site.js" defer></script>
 </body>
 </html>
