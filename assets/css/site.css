@@ -241,8 +241,10 @@ ul, ol { list-style: none; }
 .ledger dt { font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-dark); }
 .ledger dd { font-family: var(--f-display); font-weight: 600; font-size: clamp(2rem, 4.4vw, 3.6rem); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.5rem; }
 .ledger dl > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; }
+.ledger dl > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 720px) { .ledger dl > div:last-child:nth-child(odd) { grid-column: auto; } }
 @media (min-width: 720px) {
-  .ledger dl { grid-template-columns: repeat(4, 1fr); }
+  .ledger dl { grid-template-columns: repeat(3, 1fr); }
   .ledger dl > div { border-bottom: 0; padding: 1.7rem 1.5rem 1.8rem; border-left: 1px solid var(--line-dark); }
   .ledger dl > div:first-child { border-left: 0; padding-left: 0; }
 }
@@ -440,9 +442,11 @@ ul, ol { list-style: none; }
 .statrow { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: 1px solid var(--line); margin-top: 3rem; }
 .statrow div { padding: 1.6rem 0; border-bottom: 1px solid var(--line); }
 .statrow div:nth-child(even) { padding-left: 1.4rem; border-left: 1px solid var(--line); }
+.statrow div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 800px) { .statrow div:last-child:nth-child(odd) { grid-column: auto; } }
 .statrow b { display: block; font-family: var(--f-display); font-weight: 600; font-size: clamp(2.4rem, 5vw, 4.4rem); letter-spacing: -0.045em; line-height: 1; color: var(--blue); }
 .statrow span { display: block; margin-top: 0.5rem; font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-@media (min-width: 800px) { .statrow { grid-template-columns: repeat(4, 1fr); } .statrow div { border-bottom: 0; padding: 2rem 1.4rem 2rem 0; } .statrow div:nth-child(even) { padding-left: 1.4rem; } .statrow div:nth-child(3) { padding-left: 1.4rem; border-left: 1px solid var(--line); } }
+@media (min-width: 800px) { .statrow { grid-template-columns: repeat(3, 1fr); } .statrow div { border-bottom: 0; padding: 2rem 1.4rem 2rem 0; } .statrow div:nth-child(even) { padding-left: 1.4rem; } .statrow div:nth-child(3) { padding-left: 1.4rem; border-left: 1px solid var(--line); } }
 .values { display: grid; gap: 0; border-top: 1px solid var(--line-dark); }
 .value { padding: 2rem 0; border-bottom: 1px solid var(--line-dark); display: grid; gap: 0.8rem 3rem; }
 .value h3 { font-family: var(--f-display); font-weight: 600; font-size: clamp(1.5rem, 2.6vw, 2.4rem); letter-spacing: -0.03em; line-height: 1.05; }
