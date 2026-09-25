@@ -49,7 +49,7 @@
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
-    on(window, "resize", () => window.innerWidth >= 1024 && menu.classList.contains("is-open") && setOpen(false));
+    on(window, "resize", () => window.innerWidth >= 1280 && menu.classList.contains("is-open") && setOpen(false));
   }
 
   /* ------------------------------------------------------------- accordion */
@@ -86,24 +86,38 @@
   });
 
   /* ---------------------------------------------------------------- forms */
-  const form = $("#contact-form");
-  if (form) {
-    const note = $("#form-note");
+  /* Submitted to Netlify Forms (shows up in the Netlify dashboard / notification email).
+     If the request fails (offline, local preview) it falls back to opening the visitor's email app. */
+  const wireForm = (form, note, subjectPrefix, okMessage) => {
+    if (!form) return;
     const submit = $("button[type=submit]", form);
-    on(form, "submit", (e) => {
+    on(form, "submit", async (e) => {
       e.preventDefault();
       const d = new FormData(form);
-      const subject = encodeURIComponent("New project inquiry from " + (d.get("name") || ""));
-      const body = encodeURIComponent(
-        "Name: " + d.get("name") + "\nEmail: " + d.get("email") + "\nPhone: " + d.get("phone") +
-        "\nBudget: " + d.get("budget") + "\n\nMessage:\n" + d.get("message")
-      );
-      if (submit) { submit.disabled = true; submit.dataset.label = submit.textContent; }
-      if (note) note.textContent = "Opening your email app to send this — if nothing happens, email us directly at info@bunyandigital.co.";
-      window.location.href = "mailto:info@bunyandigital.co?subject=" + subject + "&body=" + body;
-      window.setTimeout(() => { if (submit) submit.disabled = false; }, 4000);
+      if (submit) submit.disabled = true;
+      if (note) note.textContent = "Sending…";
+      try {
+        const res = await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(d).toString(),
+        });
+        if (!res.ok) throw new Error("status " + res.status);
+        form.reset();
+        if (note) note.textContent = okMessage;
+      } catch (err) {
+        const lines = [];
+        d.forEach((v, k) => { if (k !== "form-name" && k !== "bot-field" && String(v).trim()) lines.push(k + ": " + v); });
+        const subject = encodeURIComponent(subjectPrefix + (d.get("name") || ""));
+        if (note) note.textContent = "We couldn't send that automatically — opening your email app instead. Or email us at info@bunyandigital.co.";
+        window.location.href = "mailto:info@bunyandigital.co?subject=" + subject + "&body=" + encodeURIComponent(lines.join("\n"));
+      } finally {
+        window.setTimeout(() => { if (submit) submit.disabled = false; }, 2500);
+      }
     });
-  }
+  };
+  wireForm($("#contact-form"), $("#form-note"), "New project inquiry from ", "Thanks — we've got your message and will reply within one business day.");
+  wireForm($("#finder-form"), $("#finder-note"), "7-Day Revenue Finder application from ", "Thanks — your application is in. We'll confirm whether you qualify within one business day.");
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 
   /* ---------------------------------------------------------------- motion */

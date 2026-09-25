@@ -168,9 +168,15 @@ ul, ol { list-style: none; }
 .menu-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; height: 2.9rem; padding: 0 0.2rem 0 0.8rem; margin-right: -0.2rem; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; }
 .menu-btn iconify-icon { font-size: 1.6rem; }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .nav-links, .nav-actions { display: flex; }
   .menu-btn { display: none; }
+}
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .nav { gap: 1.2rem; }
+  .nav-links { gap: 1.6rem; }
+  .nav-actions { gap: 1.1rem; }
+  .login-link { font-size: 0; }
 }
 
 .mobile-menu {
@@ -484,3 +490,13 @@ ul, ol { list-style: none; }
 
 /* legacy no-JS marquee duplicate */
 noscript .marquee-track { animation: none; }
+
+/* ---------------------------------------------------------------- revenue finder */
+.qualify { display: grid; gap: 0; border-top: 1px solid var(--line-dark); }
+.qualify li { position: relative; padding: 1.1rem 0 1.1rem 2rem; border-bottom: 1px solid var(--line-dark); color: var(--on-dark); }
+.qualify li::before { content: ""; position: absolute; left: 0; top: 1.55rem; width: 0.9rem; height: 2px; background: var(--blue); }
+.note { color: #fff; }
+.check { display: flex; gap: 0.8rem; align-items: flex-start; cursor: pointer; color: var(--on-dark); font-size: 0.95rem; line-height: 1.45; }
+.check input { margin-top: 0.2rem; width: 1.1rem; height: 1.1rem; flex: none; accent-color: var(--blue); }
+.finder-strip { display: grid; gap: 1.4rem; align-items: start; }
+@media (min-width: 800px) { .finder-strip { grid-template-columns: 1.3fr 1fr; align-items: end; gap: 3rem; } }
