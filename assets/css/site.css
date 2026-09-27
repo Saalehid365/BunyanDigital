@@ -364,9 +364,17 @@ ul, ol { list-style: none; }
 /* case studies */
 .case { display: grid; gap: 2rem; padding: clamp(2.5rem, 5vw, 4.5rem) 0; border-top: 1px solid var(--line); }
 .case:last-of-type { border-bottom: 1px solid var(--line); }
-.case-logo { background: #fff; border-radius: 1.2rem; aspect-ratio: 16 / 10; display: grid; place-items: center; padding: 2rem; border: 1px solid var(--line); overflow: hidden; }
-.case-logo img { max-height: 100%; max-width: 78%; width: auto; height: auto; object-fit: contain; transition: transform 0.7s var(--ease); }
-.case:hover .case-logo img { transform: scale(1.05); }
+.case-logo { background: #fff; border-radius: 1.2rem; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 60px -32px rgba(5, 8, 26, 0.22); transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease); }
+.case:hover .case-logo { transform: translateY(-6px); box-shadow: 0 40px 70px -28px rgba(5, 8, 26, 0.3); }
+.case-chrome { display: flex; align-items: center; gap: 0.35rem; padding: 0.65rem 0.85rem; background: #f4f3ef; border-bottom: 1px solid var(--line); }
+.case-chrome i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--line-dark); opacity: 0.55; }
+.case-domain { margin-left: 0.55rem; font-family: var(--f-mono); font-size: 0.7rem; color: var(--muted); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem 0.85rem; }
+.case-shot { aspect-ratio: 16 / 10; overflow: hidden; }
+.case-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.8s var(--ease); }
+.case:hover .case-shot img { transform: scale(1.04); }
+.case--compact .case-logo { box-shadow: none; aspect-ratio: 16 / 10; display: grid; place-items: center; padding: 2rem; }
+.case--compact .case-logo img { max-height: 100%; max-width: 78%; width: auto; height: auto; object-fit: contain; transition: transform 0.7s var(--ease); }
+.case--compact:hover .case-logo img { transform: scale(1.05); }
 .case-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.1rem; }
 .case h3 { margin-bottom: 1rem; }
 .case-copy > p { color: var(--muted); max-width: 40rem; }
