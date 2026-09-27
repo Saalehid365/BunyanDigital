@@ -372,9 +372,7 @@ ul, ol { list-style: none; }
 .case-shot { aspect-ratio: 16 / 10; overflow: hidden; }
 .case-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.8s var(--ease); }
 .case:hover .case-shot img { transform: scale(1.04); }
-.case--compact .case-logo { box-shadow: none; aspect-ratio: 16 / 10; display: grid; place-items: center; padding: 2rem; }
-.case--compact .case-logo img { max-height: 100%; max-width: 78%; width: auto; height: auto; object-fit: contain; transition: transform 0.7s var(--ease); }
-.case--compact:hover .case-logo img { transform: scale(1.05); }
+.case--compact .case-logo { box-shadow: none; }
 .case-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.1rem; }
 .case h3 { margin-bottom: 1rem; }
 .case-copy > p { color: var(--muted); max-width: 40rem; }
@@ -389,7 +387,7 @@ ul, ol { list-style: none; }
   .case-logo { position: sticky; top: calc(var(--header-h) + 2rem); }
 }
 .case--compact { grid-template-columns: 1fr; }
-@media (min-width: 900px) { .case--compact { grid-template-columns: 0.5fr 1.5fr auto; align-items: center; } .case--compact .case-logo { position: static; aspect-ratio: 16 / 9; } }
+@media (min-width: 900px) { .case--compact { grid-template-columns: 0.5fr 1.5fr auto; align-items: center; } .case--compact .case-logo { position: static; } }
 
 .clients { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .clients li { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fff; aspect-ratio: 16 / 9; display: grid; place-items: center; padding: 1.6rem; }
@@ -508,3 +506,19 @@ noscript .marquee-track { animation: none; }
 .check input { margin-top: 0.2rem; width: 1.1rem; height: 1.1rem; flex: none; accent-color: var(--blue); }
 .finder-strip { display: grid; gap: 1.4rem; align-items: start; }
 @media (min-width: 800px) { .finder-strip { grid-template-columns: 1.3fr 1fr; align-items: end; gap: 3rem; } }
+
+/* ---------------------------------------------------------------- social icons */
+.socials { display: flex; gap: 0.7rem; margin-top: 1.5rem; }
+.social {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 1px solid var(--line-dark);
+  overflow: hidden; isolation: isolate; transition: border-color 0.3s var(--ease);
+}
+.social::before {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 0; background: var(--social-color);
+  transition: height 0.3s var(--ease); z-index: 0;
+}
+.social iconify-icon { position: relative; z-index: 1; font-size: 1.2rem; color: var(--on-dark); transition: color 0.3s var(--ease); }
+.social:hover { border-color: transparent; }
+.social:hover::before { height: 100%; }
+.social:hover iconify-icon { color: #fff; }
