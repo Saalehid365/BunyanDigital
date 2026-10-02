@@ -277,6 +277,7 @@ ul, ol { list-style: none; }
 .marquee-track { display: flex; width: max-content; gap: 4.5rem; animation: marquee 34s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 .marquee-track img { height: 1.9rem; width: auto; opacity: 0.85; }
+.marquee-track iconify-icon { font-size: 1.9rem; opacity: 0.85; color: var(--muted); }
 .marquee-track .dupe { display: contents; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 .reduced .marquee-track, .no-marquee .marquee-track { animation: none; flex-wrap: wrap; width: auto; }
