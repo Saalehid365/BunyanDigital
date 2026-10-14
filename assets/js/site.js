@@ -20,7 +20,7 @@
     };
     btn.addEventListener("click", () => setOpen(panel.hidden));
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) { setOpen(false); btn.focus(); } });
-    window.matchMedia("(min-width: 1000px)").addEventListener("change", (m) => { if (m.matches) setOpen(false); });
+    window.matchMedia("(min-width: 1180px)").addEventListener("change", (m) => { if (m.matches) setOpen(false); });
   }
 
   /* forms: submit to Netlify Forms, fall back to the visitor's email app if that fails */

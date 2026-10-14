@@ -76,7 +76,7 @@ ul, ol { padding: 0; list-style: none; }
 .bar { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: 76px; }
 .brand { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
 .brand img { height: 26px; width: auto; }
-.nav { display: none; gap: 2rem; font-size: 15px; color: var(--muted); }
+.nav { display: none; gap: 1.75rem; font-size: 15px; color: var(--muted); }
 .nav a { text-decoration: none; transition: color .15s ease-out; }
 .nav a:hover, .nav a[aria-current] { color: var(--text); }
 .bar-actions { display: none; align-items: center; gap: 1.25rem; }
@@ -88,7 +88,7 @@ ul, ol { padding: 0; list-style: none; }
 .mobile-nav li a { display: flex; justify-content: space-between; align-items: baseline; padding: 1rem 0; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
 .mobile-nav li a span { color: var(--muted); font-size: 14px; font-weight: 500; }
 .mobile-nav li a[aria-current] { color: var(--accent-text); }
-@media (min-width: 1000px) {
+@media (min-width: 1180px) {
   .nav, .bar-actions { display: flex; }
   .menu-btn, .mobile-nav { display: none !important; }
 }
