@@ -4,3 +4,6 @@
 # a redirect — the browser's address bar stays on /crm, it never sees the .netlify.app URL.
 /crm    https://bunyandigitalcrm.netlify.app/crm    200
 /crm/*  https://bunyandigitalcrm.netlify.app/crm/:splat  200
+
+# Old client portal holding page now goes to the real portal login in the CRM.
+/client-login.html  /crm/portal/login  301
