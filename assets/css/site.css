@@ -189,7 +189,8 @@ a.svc:hover { background: var(--panel); }
 .clients { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; margin-top: 1rem; }
 .clients li { background: #fff; border-radius: 14px; height: 96px; display: grid; place-items: center; padding: 1rem 1.5rem; }
 .clients img { max-height: 52px; width: auto; object-fit: contain; }
-@media (min-width: 760px) { .clients { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 760px) { .clients { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1100px) { .clients { grid-template-columns: repeat(5, 1fr); } }
 
 /* ---------- steps, values ---------- */
 .steps { display: grid; gap: 1rem; counter-reset: step; }
