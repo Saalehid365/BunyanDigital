@@ -1,5 +1,11 @@
+# The site moved from bunyandigital.co to nabnatech.com: send every old address
+# (including /crm links) to the same path on the new domain.
+https://bunyandigital.co/*      https://nabnatech.com/:splat      301!
+https://www.bunyandigital.co/*  https://nabnatech.com/:splat      301!
+https://www.nabnatech.com/*     https://nabnatech.com/:splat      301!
+
 # Reverse-proxies the CRM app (a separate Netlify site) under /crm on this domain,
-# so it appears as part of www.bunyandigital.co without needing its own subdomain or
+# so it appears as part of nabnatech.com without needing its own subdomain or
 # any DNS changes. Status 200 makes this a proxy/rewrite (fetch-and-serve) rather than
 # a redirect — the browser's address bar stays on /crm, it never sees the .netlify.app URL.
 /crm    https://bunyandigitalcrm.netlify.app/crm    200

@@ -1,37 +1,55 @@
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* header rule appears once the page scrolls */
+  /* translucent header: the soft edge appears only once content is under it */
   const header = $(".site-header");
   if (header) {
-    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
+    const onScroll = () => header.classList.toggle("is-scrolled", scrollY > 4);
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("scroll", onScroll, { passive: true });
   }
 
-  /* mobile menu */
+  /* mobile menu (labels come from the button, so they follow the page language) */
   const btn = $("#menu-btn");
   const panel = $("#mobile-nav");
   if (btn && panel) {
     const setOpen = (open) => {
       btn.setAttribute("aria-expanded", String(open));
-      btn.querySelector("[data-label]").textContent = open ? "Close" : "Menu";
+      btn.querySelector("[data-label]").textContent = open ? btn.dataset.close || "Close" : btn.dataset.open || "Menu";
       panel.hidden = !open;
     };
     btn.addEventListener("click", () => setOpen(panel.hidden));
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) { setOpen(false); btn.focus(); } });
-    window.matchMedia("(min-width: 1180px)").addEventListener("change", (m) => { if (m.matches) setOpen(false); });
+    matchMedia("(min-width: 1180px)").addEventListener("change", (m) => { if (m.matches) setOpen(false); });
   }
 
-  /* forms: submit to Netlify Forms, fall back to the visitor's email app if that fails */
-  const wireForm = (form, note, subjectPrefix, okMessage) => {
+  /* services dropdown: opens on hover with a mouse, on press with touch or keyboard,
+     and grows out of its trigger (see .nav-menu transform-origin) */
+  $$("[data-drop]").forEach((drop) => {
+    const toggle = $("button", drop);
+    const set = (open) => { open ? drop.setAttribute("data-open", "") : drop.removeAttribute("data-open"); toggle.setAttribute("aria-expanded", String(open)); };
+    let timer;
+    drop.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") { clearTimeout(timer); set(true); } });
+    drop.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") timer = setTimeout(() => set(false), 120); });
+    toggle.addEventListener("click", () => set(!drop.hasAttribute("data-open")));
+    drop.addEventListener("keydown", (e) => { if (e.key === "Escape") { set(false); toggle.focus(); } });
+    drop.addEventListener("focusout", (e) => { if (!drop.contains(e.relatedTarget)) set(false); });
+    document.addEventListener("pointerdown", (e) => { if (!drop.contains(e.target)) set(false); });
+  });
+
+  /* forms: submit to Netlify Forms, fall back to the visitor's email app if that fails.
+     Status messages come from data-msg-* on the form, so they match the page language. */
+  const wireForm = (form, note, subjectPrefix) => {
     if (!form) return;
     const submit = $("button[type=submit]", form);
+    const msg = form.dataset;
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const d = new FormData(form);
       if (submit) submit.disabled = true;
-      if (note) note.textContent = "Sending…";
+      if (note) note.textContent = msg.msgSending || "Sending…";
       try {
         const res = await fetch("/", {
           method: "POST",
@@ -40,163 +58,107 @@
         });
         if (!res.ok) throw new Error("status " + res.status);
         form.reset();
-        if (note) note.textContent = okMessage;
+        if (note) note.textContent = msg.msgOk || "Thanks, we've got your message.";
       } catch (err) {
         const lines = [];
         d.forEach((v, k) => { if (k !== "form-name" && k !== "bot-field" && String(v).trim()) lines.push(k + ": " + v); });
-        if (note) note.textContent = "We couldn't send that automatically, so your email app is opening instead. You can also email info@bunyandigital.co.";
-        window.location.href = "mailto:info@bunyandigital.co?subject=" + encodeURIComponent(subjectPrefix + (d.get("name") || "")) + "&body=" + encodeURIComponent(lines.join("\n"));
+        if (note) note.textContent = msg.msgFail || "We couldn't send that automatically, so your email app is opening instead.";
+        location.href = "mailto:info@nabnatech.com?subject=" + encodeURIComponent(subjectPrefix + (d.get("name") || "")) + "&body=" + encodeURIComponent(lines.join("\n"));
       } finally {
-        window.setTimeout(() => { if (submit) submit.disabled = false; }, 2500);
+        setTimeout(() => { if (submit) submit.disabled = false; }, 2500);
       }
     });
   };
-  wireForm($("#contact-form"), $("#form-note"), "New project inquiry from ", "Thanks, we've got your message. We'll reply within one business day.");
-  wireForm($("#finder-form"), $("#finder-note"), "7-Day Revenue Finder application from ", "Thanks, your application is in. We'll confirm whether you qualify within one business day.");
+  wireForm($("#contact-form"), $("#form-note"), "New project inquiry from ");
+  wireForm($("#finder-form"), $("#finder-note"), "7-Day Revenue Finder application from ");
+  wireForm($("#pilot-form"), $("#pilot-note"), "WhatsApp assistant pilot request from ");
 
-  /* rolling word: each letter of a [data-roll] word spins through copies of itself
-     and lands, slot-machine style, once the word scrolls into view. Ported from the
-     RollingText component (expo.out easing, per-letter cycles and duration from a
-     seeded PRNG). Without JS the word is plain text. */
-  const mulberry32 = (seed) => () => {
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-  const expoOut = (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
-  document.querySelectorAll("[data-roll]").forEach((el) => {
-    const text = el.textContent;
-    const minCycles = 3, cycleVariance = 3, duration = 2.4, durationVariance = 1.2;
-    el.classList.add("roll");
-    el.setAttribute("role", "text");
-    el.setAttribute("aria-label", text);
-    el.textContent = "";
-    const reels = [...text].map((ch, i) => {
-      const rand = mulberry32(i * 1013 + 7);
-      const to = minCycles + Math.floor(rand() * cycleVariance);
-      const cell = document.createElement("span");
-      cell.className = "roll-cell";
-      cell.setAttribute("aria-hidden", "true");
-      const ghost = document.createElement("span");
-      ghost.className = "roll-ghost";
-      ghost.textContent = ch;
-      const win = document.createElement("span");
-      win.className = "roll-win";
-      const reel = document.createElement("span");
-      reel.className = "roll-reel";
-      for (let c = 0; c <= to; c++) {
-        const copy = document.createElement("span");
-        copy.textContent = ch;
-        reel.append(copy);
-      }
-      win.append(reel);
-      cell.append(ghost, win);
-      el.append(cell);
-      return { reel, to, ms: (duration + rand() * durationVariance) * 1000 };
-    });
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      reels.forEach((r) => r.reel.style.setProperty("--k", r.to));
-      return;
-    }
-    const spin = () => {
-      const start = performance.now();
-      const tick = (now) => {
-        let running = false;
-        reels.forEach((r) => {
-          const p = Math.min(1, (now - start) / r.ms);
-          r.reel.style.setProperty("--k", (r.to * expoOut(p)).toFixed(4));
-          if (p < 1) running = true;
-        });
-        if (running) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
+  /* home hero slider: autoplay with a visible progress bar and a pause control; tabs
+     respond on press; a swipe reads intent from its velocity, projected forward like a
+     flick, so a short fast swipe counts as much as a long slow one. */
+  const hero = $("#hero");
+  if (hero) {
+    const slides = $$(".slide", hero), tabs = $$(".tab", hero);
+    const now = $("[data-now]", hero), tagText = $("[data-tag-text]", hero), pauseBtn = $("[data-pause]", hero);
+    const rtl = document.documentElement.dir === "rtl";
+    const DUR = 6500;
+    let i = 0, timer, paused = reduce, seen = true;
+    hero.style.setProperty("--dur", DUR + "ms");
+    const schedule = () => { clearTimeout(timer); if (!paused && seen) timer = setTimeout(() => show(i + 1), DUR); };
+    const show = (n) => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => { s.classList.toggle("is-on", k === i); s.setAttribute("aria-hidden", String(k !== i)); });
+      tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); const bar = $("i", t); bar.style.animation = "none"; void bar.offsetWidth; bar.style.animation = ""; });
+      now.textContent = String(i + 1).padStart(2, "0");
+      tagText.textContent = slides[i].dataset.tag;
+      schedule();
     };
-    const io = new IntersectionObserver(([en]) => {
-      if (!en.isIntersecting) return;
-      io.disconnect();
-      spin();
-    }, { threshold: 0.6 });
-    io.observe(el);
-  });
+    const setPaused = (p) => {
+      paused = p;
+      hero.classList.toggle("is-paused", p);
+      pauseBtn.setAttribute("aria-label", p ? pauseBtn.dataset.labelPlay : pauseBtn.dataset.labelPause);
+      schedule();
+    };
+    if (reduce) hero.classList.add("is-paused");
+    tabs.forEach((t, k) => {
+      t.addEventListener("pointerdown", () => show(k));
+      t.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(k); } });
+    });
+    $("[data-next]", hero).addEventListener("click", () => show(i + 1));
+    $("[data-prev]", hero).addEventListener("click", () => show(i - 1));
+    pauseBtn.addEventListener("click", () => setPaused(!paused));
+    new IntersectionObserver(([e]) => { seen = e.isIntersecting; schedule(); }).observe(hero);
+    document.addEventListener("visibilitychange", () => { seen = !document.hidden; schedule(); });
+    const project = (v, d = 0.998) => (v / 1000) * d / (1 - d);
+    let drag = null;
+    hero.addEventListener("pointerdown", (e) => { if (e.target.closest(".tabs, a, button")) return; drag = { x: e.clientX, hist: [[e.clientX, e.timeStamp]] }; });
+    hero.addEventListener("pointermove", (e) => { if (!drag) return; drag.hist.push([e.clientX, e.timeStamp]); if (drag.hist.length > 5) drag.hist.shift(); });
+    hero.addEventListener("pointerup", (e) => {
+      if (!drag) return;
+      const h = drag.hist, a = h[0], b = h[h.length - 1];
+      const v = (b[0] - a[0]) / Math.max(1, b[1] - a[1]) * 1000;
+      const travel = (e.clientX - drag.x) + project(v);
+      drag = null;
+      if (Math.abs(travel) > Math.min(160, innerWidth * .18)) show(i + ((travel < 0) !== rtl ? 1 : -1));
+    });
+    hero.addEventListener("pointercancel", () => (drag = null));
+    hero.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") show(i + (rtl ? -1 : 1));
+      if (e.key === "ArrowLeft") show(i + (rtl ? 1 : -1));
+    });
+    schedule();
 
-  /* animated borders: only spin the light while the card is on (or near) the screen */
-  const glows = document.querySelectorAll("[data-glow]");
-  if (glows.length) {
-    const glowIO = new IntersectionObserver((entries) => entries.forEach((en) => en.target.classList.toggle("is-in-view", en.isIntersecting)), { rootMargin: "100px" });
-    glows.forEach((g) => glowIO.observe(g));
+    /* on phones the floating WhatsApp button would cover the hero's buttons and
+       controls, so it waits until the hero has scrolled away */
+    const wa = $(".wa-pill");
+    if (wa) new IntersectionObserver(([e]) => wa.classList.toggle("is-hidden", e.isIntersecting), { threshold: 0.15 }).observe(hero);
   }
 
-  /* feature carousel: store names on a vertical reel (left) and the store homepages
-     (right). Moves on every few seconds; click a name to jump forward to it. Pauses
-     while hovered, focused, off screen or in a background tab. Ported from the
-     FeatureCarousel component. */
-  document.querySelectorAll("[data-fc]").forEach((root) => {
-    const items = [...root.querySelectorAll(".fc-item")];
-    const chips = items.map((it) => $(".fc-chip", it));
-    const cards = [...root.querySelectorAll(".fc-card")];
-    const n = cards.length;
-    if (n < 2) return;
-    const ITEM_H = 65;
-    const interval = Number(root.dataset.interval) || 3000;
-    let step = 0;
-    let paused = false;
-    let seen = false;
-    const index = () => ((step % n) + n) % n;
-    // signed distance from the active item, wrapped into [-n/2, n/2)
-    const wrapped = (i) => {
-      const d = (((i - index()) % n) + n) % n;
-      return d >= n / 2 ? d - n : d;
+  /* "what's your next move" picker: changes on press; up and down arrows move between goals */
+  $$("[data-mover]").forEach((mover) => {
+    const picks = $$(".pick", mover), views = $$(".view", mover);
+    const pick = (k) => {
+      picks.forEach((p, j) => { p.setAttribute("aria-selected", String(j === k)); p.tabIndex = j === k ? 0 : -1; });
+      views.forEach((v, j) => v.classList.toggle("is-on", j === k));
     };
-    const lastD = items.map((_, i) => wrapped(i));
-    const render = () => {
-      items.forEach((it, i) => {
-        const d = wrapped(i);
-        // A name wrapping from one end of the reel to the other would slide through the
-        // active chip (with only a few stores), so it jumps there unseen and fades back in.
-        if (Math.abs(d - lastD[i]) > 1) {
-          it.style.transition = "none";
-          it.style.opacity = "0";
-          it.style.transform = `translateY(${d * ITEM_H}px)`;
-          void it.offsetHeight;
-          it.style.transition = "";
-        } else {
-          it.style.transform = `translateY(${d * ITEM_H}px)`;
-        }
-        lastD[i] = d;
-        it.style.opacity = String(1 - Math.abs(d) * 0.25);
-        chips[i].setAttribute("aria-pressed", d === 0 ? "true" : "false");
+    picks.forEach((p, k) => {
+      p.addEventListener("pointerdown", () => pick(k));
+      p.addEventListener("click", () => pick(k));
+      p.addEventListener("keydown", (e) => {
+        const d = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        const n = (k + d + picks.length) % picks.length;
+        pick(n);
+        picks[n].focus();
       });
-      cards.forEach((card, i) => {
-        const d = wrapped(i);
-        const status = d === 0 ? "active" : d === -1 ? "prev" : d === 1 ? "next" : "hidden";
-        card.dataset.status = status;
-        if (status === "active") card.removeAttribute("aria-hidden");
-        else card.setAttribute("aria-hidden", "true");
-      });
-    };
-    chips.forEach((chip, i) =>
-      chip.addEventListener("click", () => {
-        const diff = (i - index() + n) % n;
-        if (diff > 0) {
-          step += diff;
-          render();
-        }
-      }),
-    );
-    root.addEventListener("pointerenter", () => (paused = true));
-    root.addEventListener("pointerleave", () => (paused = false));
-    root.addEventListener("focusin", () => (paused = true));
-    root.addEventListener("focusout", (e) => { if (!root.contains(e.relatedTarget)) paused = false; });
-    new IntersectionObserver(([en]) => (seen = en.isIntersecting), { threshold: 0.3 }).observe(root);
-    window.setInterval(() => {
-      if (paused || !seen || document.hidden) return;
-      step += 1;
-      render();
-    }, interval);
-    render();
+    });
+    pick(0);
   });
 
-  document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
+  /* slogan marquee only runs while it is on screen */
+  const closing = $("#closing");
+  if (closing) new IntersectionObserver(([e]) => closing.classList.toggle("is-off", !e.isIntersecting)).observe(closing);
+
+  $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 })();
