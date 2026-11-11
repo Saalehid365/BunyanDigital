@@ -520,6 +520,21 @@ html[dir="rtl"] .marquee { animation-name: slide-rtl; }
 @keyframes slide-rtl { to { transform: translateX(50%); } }
 @media (max-width: 900px) { html[dir="rtl"] .slide-bg, html[dir="rtl"] .slide-bg--made { inset: 0; } }
 
+/* hero on phones: the picture fills the whole hero behind everything, as on desktop,
+   but stronger than the old 30% so it actually shows. A light blur keeps the text inside
+   the screenshots from competing with the headline; the tint is deepest behind the
+   headline (top) and the text and buttons (bottom). */
+@media (max-width: 900px) {
+  .hero-slider .slide-bg, .hero-slider .slide-bg--made, html[dir="rtl"] .hero-slider .slide-bg, html[dir="rtl"] .hero-slider .slide-bg--made { inset: 0; opacity: 1; }
+  .hero-slider .slide-bg img { filter: blur(2.5px) saturate(.85) brightness(.9); object-position: 62% top; }
+  .hero-slider .slide-bg--made img { filter: blur(1.5px) brightness(.9); object-position: 74% center; }
+  .hero-slider .slide-bg::after, .hero-slider .slide-bg--made::after,
+  html[dir="rtl"] .hero-slider .slide-bg::after, html[dir="rtl"] .hero-slider .slide-bg--made::after {
+    background: linear-gradient(180deg, rgba(8, 35, 21, .9) 0%, rgba(8, 35, 21, .7) 40%, rgba(8, 35, 21, .55) 52%, rgba(8, 35, 21, .7) 64%, rgba(8, 35, 21, .94) 80%, var(--g-950) 100%);
+  }
+  .hero-slider .slide-copy .h1, .hero-slider .slide-copy .eyebrow { text-shadow: 0 2px 18px rgba(0, 0, 0, .55); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation: none !important; }
   .slide, .view { transition: opacity .2s ease, visibility 0s !important; }
